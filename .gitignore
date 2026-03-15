@@ -1,0 +1,31 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore Next.js build output
+.next/
+out/
+build/
+
+# Ignore environment variables and secrets (CRITICAL)
+.env
+.env.*.local
+.synthesis/
+
+# Ignore python cache
+__pycache__/
+*.pyc
+
+# Ignore hackathon details and spec files as requested
+Synthesis.md
+Synthesis_hackathon_webscrap.md
+skills.md
+Tracks.md
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
