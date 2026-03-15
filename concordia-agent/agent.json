@@ -1,0 +1,15 @@
+{
+  "name": "Concordia Private Copilot",
+  "description": "An autonomous agent that privately analyzes smart contracts for risks using the Venice AI HTTP API and IPFS storage, recording the analysis hash on Ethereum.",
+  "version": "1.0.0",
+  "capabilities": [
+    "Ethereum Blockchain Listener",
+    "Smart Contract interaction",
+    "IPFS fetching and uploading",
+    "Venice AI Private Inference"
+  ],
+  "agentIdentity": {
+    "type": "ERC-8004",
+    "registration": "Synthesis Hackathon 2026"
+  }
+}
