@@ -70,7 +70,7 @@ async function startAgent() {
 
             // 4. Verify: Submit the blockchain transaction back to the room
             console.log(`[Blockchain] Submitting transaction to submitAnalysis()...`);
-            const tx = await contract.submitAnalysis(roomId, analysisCid);
+            const tx = await (contract as any).submitAnalysis(roomId, analysisCid);
             console.log(`[Blockchain] Tx sent! Waiting for confirmation... Hash: ${tx.hash}`);
             
             await tx.wait();
