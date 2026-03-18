@@ -1,15 +1,48 @@
 {
   "name": "Concordia Private Copilot",
-  "description": "An autonomous agent that privately analyzes smart contracts for risks using the Venice AI HTTP API and IPFS storage, recording the analysis hash on Ethereum.",
-  "version": "1.0.0",
-  "capabilities": [
-    "Ethereum Blockchain Listener",
-    "Smart Contract interaction",
-    "IPFS fetching and uploading",
-    "Venice AI Private Inference"
+  "description": "An autonomous AI agent that privately analyzes contracts using Venice AI's no-retention API, mediates negotiations between parties while keeping each party's constraints secret, and records finalized agreements on Ethereum. Operates a full autonomous loop: discover → plan → execute → verify.",
+  "version": "2.0.0",
+  "operatorWallet": "WILL_BE_SET_FROM_ENV",
+  "erc8004Identity": {
+    "registrationTxn": "https://basescan.org/tx/0xd15420ae373f1fdeca4a8100867cbc40ce83ca7d9005c763002f7181eab6d0ed",
+    "participantId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "teamId": "3f782982b43f43d48f72bd36bb23baeb"
+  },
+  "supportedTools": [
+    "ethereum_event_listener",
+    "ipfs_fetch",
+    "ipfs_upload",
+    "venice_ai_private_inference",
+    "ethereum_transaction_submit",
+    "contract_analysis",
+    "negotiation_mediation"
   ],
-  "agentIdentity": {
-    "type": "ERC-8004",
-    "registration": "Synthesis Hackathon 2026"
-  }
+  "techStack": {
+    "runtime": "Node.js + TypeScript",
+    "blockchain": "Ethers.js v6",
+    "ai": "Venice AI API (llama-3.3-70b)",
+    "storage": "IPFS via Pinata SDK",
+    "network": "Ethereum Sepolia Testnet",
+    "agentHarness": "google-antigravity"
+  },
+  "computeConstraints": {
+    "maxVeniceCallsPerRoom": 10,
+    "maxGasPerTransaction": "500000",
+    "pollingIntervalMs": 5000,
+    "maxRetries": 3
+  },
+  "taskCategories": [
+    "contract_analysis",
+    "risk_assessment",
+    "negotiation_mediation",
+    "on_chain_finalization"
+  ],
+  "capabilities": [
+    "Ethereum Blockchain Listener (RoomCreated events)",
+    "Smart Contract interaction (submitAnalysis, logNegotiationUpdate)",
+    "IPFS fetching and uploading (encrypted contract data)",
+    "Venice AI Private Inference (no-data-retention)",
+    "Autonomous Negotiation Mediation",
+    "Structured Execution Logging (agent_log.json)"
+  ]
 }

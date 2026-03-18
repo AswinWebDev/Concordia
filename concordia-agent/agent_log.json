@@ -1,0 +1,612 @@
+[
+  {
+    "timestamp": "2026-03-16T07:42:15.878Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Discovered Contract",
+    "metadata": {
+      "roomId": "0",
+      "ipfsHash": "bafkreigpxlfyigskgsdpjbr6csqvsqck324spwt5r4shaeu3yfgmvkvhcq"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:42:21.038Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Fetched Document",
+    "metadata": {
+      "length": 28
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:42:21.629Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Error",
+    "metadata": {
+      "error": "AxiosError: Request failed with status code 400"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:48:28.304Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Discovered Contract",
+    "metadata": {
+      "roomId": "0",
+      "ipfsHash": "bafkreigpxlfyigskgsdpjbr6csqvsqck324spwt5r4shaeu3yfgmvkvhcq"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:48:35.758Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Fetched Document",
+    "metadata": {
+      "length": 28
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:48:36.281Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Error",
+    "metadata": {
+      "error": "AxiosError: Request failed with status code 400"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:50:00.753Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Discovered Contract",
+    "metadata": {
+      "roomId": "0",
+      "ipfsHash": "bafkreigpxlfyigskgsdpjbr6csqvsqck324spwt5r4shaeu3yfgmvkvhcq"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:50:06.095Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Fetched Document",
+    "metadata": {
+      "length": 28
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:50:06.590Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Error",
+    "metadata": {
+      "error": "AxiosError: Request failed with status code 400"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:53:39.726Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Discovered Contract",
+    "metadata": {
+      "roomId": "0",
+      "ipfsHash": "bafkreigpxlfyigskgsdpjbr6csqvsqck324spwt5r4shaeu3yfgmvkvhcq"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:53:46.708Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Fetched Document",
+    "metadata": {
+      "length": 28
+    }
+  },
+  {
+    "timestamp": "2026-03-16T07:53:47.276Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Error",
+    "metadata": {
+      "error": "AxiosError: Request failed with status code 400"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:14:15.385Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Discovered Contract",
+    "metadata": {
+      "roomId": "1",
+      "ipfsHash": "bafkreifhzrbfjmbir3ixyjk65rf6rpdztgdiwwuwyv7owkxoug3pinoqgu"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:14:23.681Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Fetched Document",
+    "metadata": {
+      "length": 17
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:14:27.077Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Analyzed via Venice",
+    "metadata": {
+      "model": "llama-3.3-70b"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:14:29.438Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Uploaded Analysis",
+    "metadata": {
+      "analysisCid": "bafkreig5vjsqdzf3fop3l7c64ypuqgjqgj2a2jnjezuwquufaocsuz66la"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:14:41.066Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "action": "Transaction Confirmed",
+    "metadata": {
+      "txHash": "0x03e1e4c28fcd591e561bce060d3de5e63ba0e7b5bbbbd99b2cc7d54a4b08e16d",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T15:57:08.599Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Agent Started",
+    "metadata": {
+      "rpc": "https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430",
+      "contract": "0xD65f31De415eF96B0cBa07034d7C35EcbE3a8277",
+      "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
+      "pollInterval": 5000
+    }
+  },
+  {
+    "timestamp": "2026-03-16T17:30:47.604Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Agent Started",
+    "metadata": {
+      "rpc": "https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430",
+      "contract": "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC",
+      "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
+      "pollInterval": 5000
+    }
+  },
+  {
+    "timestamp": "2026-03-16T22:20:19.037Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T22:36:23.074Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T22:45:51.077Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T23:36:51.855Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "read ECONNRESET"
+    }
+  },
+  {
+    "timestamp": "2026-03-16T23:36:51.856Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T00:10:47.546Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T02:42:12.071Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T02:42:12.133Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T02:49:51.075Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T03:50:52.053Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T04:41:49.042Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T04:51:53.037Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T06:25:46.953Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T06:42:01.938Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T06:53:54.926Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:06:26.136Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Agent Started",
+    "metadata": {
+      "rpc": "https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430",
+      "contract": "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC",
+      "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
+      "pollInterval": 5000
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:16.994Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "request timeout (code=TIMEOUT, version=6.16.0)"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:17.804Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "read ETIMEDOUT"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:21.365Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:21.995Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:26.996Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:31.997Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:36.998Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:41.998Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:47.000Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:51.999Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:45:57.002Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:02.003Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:07.004Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:12.005Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:17.006Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:22.007Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:27.008Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:32.009Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:37.011Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:42.011Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:47.011Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:52.010Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:46:57.012Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:02.013Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:07.013Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:12.015Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:17.015Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:22.016Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:27.017Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:32.018Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:37.019Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:42.020Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  },
+  {
+    "timestamp": "2026-03-17T09:47:47.021Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "RPC Polling Error",
+    "metadata": {
+      "error": "getaddrinfo ENOTFOUND sepolia.infura.io"
+    }
+  }
+]

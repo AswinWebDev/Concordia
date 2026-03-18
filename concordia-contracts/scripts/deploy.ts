@@ -20,10 +20,26 @@ async function main() {
   const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf-8"));
   const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, wallet);
   
-  console.log(`Deploying AgreementRoom directly via Ethers v6 from account: ${wallet.address}`);
-  const contract = await factory.deploy();
+  // The deployer wallet is also the agent wallet for the hackathon demo.
+  // In production, these would be separate keys.
+  const agentAddress = wallet.address;
+  
+  console.log(`Deploying AgreementRoom with agent address: ${agentAddress}`);
+  console.log(`Deploying from account: ${wallet.address}`);
+  
+  const contract = await factory.deploy(agentAddress);
   await contract.waitForDeployment();
-  console.log("✅ AgreementRoom deployed to:", await contract.getAddress());
+  
+  const deployedAddress = await contract.getAddress();
+  console.log("✅ AgreementRoom deployed to:", deployedAddress);
+  console.log("\n📋 Update these in your .env files:");
+  console.log(`   NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS=${deployedAddress}`);
+  console.log(`   AGREEMENT_ROOM_ADDRESS=${deployedAddress}`);
+
+  // Also copy the ABI to the frontend for Wagmi
+  const abiOnly = JSON.stringify(artifact.abi, null, 2);
+  fs.writeFileSync("../concordia-frontend/src/contracts/AgreementRoomABI.json", abiOnly);
+  console.log("\n✅ ABI copied to concordia-frontend/src/contracts/AgreementRoomABI.json");
 }
 
 main().catch((error) => {

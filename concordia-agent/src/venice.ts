@@ -34,7 +34,7 @@ Format exactly as Markdown and keep it concise.`
                 // CRITICAL FOR HACKATHON: explicitly demonstrating the Venice features
                 venice_parameters: {
                     include_venice_system_prompt: false,
-                    enable_web_search: false // fully self-contained private inference
+                    enable_web_search: "off" // fully self-contained private inference
                 }
             },
             {
@@ -49,7 +49,7 @@ Format exactly as Markdown and keep it concise.`
         return response.data.choices[0].message.content;
 
     } catch (error: any) {
-        console.error("[Venice AI Error]", error.response?.data || error.message);
+        console.error("[Venice AI Error]", JSON.stringify(error.response?.data || error.message, null, 2));
         throw error;
     }
 }

@@ -4,6 +4,40 @@
 
 Concordia is a **privacy‑first AI contract copilot** that helps two parties understand, negotiate, and finalize agreements in a private “contract room”, then records the final agreement and optional escrow on Ethereum for a neutral, tamper‑proof record.
 
+## 🏆 Hackathon Tracks Targeted
+
+1. **Protocol Labs ($16,000 - Agents With Receipts / ERC-8004)**
+   - Concordia features a **Truly Autonomous Background Agent**. 
+   - It runs its own execution loop: listening to the Ethereum blockchain for `RoomCreated` events. 
+   - When an event is detected, it autonomously fetches the encrypted contract text from IPFS, decrypts it, runs it through Venice AI, and submits a blockchain transaction back to the room with the analysis hash. 
+   - A perfect "discover -> plan -> execute -> verify" loop, totally independent of the frontend!
+
+2. **Venice ($11,500 - Private Agents, Trusted Actions)**
+   - Concordia strictly utilizes the Venice API to process contracts with absolute privacy.
+   - We utilize `llama-3.3-70b` for complex contract reasoning.
+   - We explicitly enforce Venice's privacy features via API parameters: `enable_web_search: "off"` and `include_venice_system_prompt: false` to ensure confidential contract terms never leak or become training data.
+
+3. **Synthesis Open Track ($14,500)**
+   - We hit multiple hackathon themes natively ("Agents that keep secrets", "Agents that cooperate").
+
+## 🛠️ Tech Stack & Technologies Used
+
+**Frontend & Web3**
+- **Framework:** Next.js 15 (React), Tailwind CSS v4, Framer Motion, Lucide React
+- **Web3 Integration:** Wagmi, Viem, Next.js API Routes
+- **Wallet Auth:** RainbowKit, WalletConnect
+
+**Backend / Autonomous Agent**
+- **Runtime:** Node.js, TypeScript (`ts-node`)
+- **Blockchain Interaction:** Ethers.js v6
+- **AI Inference:** Venice AI API (`llama-3.3-70b`)
+- **Automated Logging:** JSON-based state logging (Protocol Labs requirement)
+
+**Smart Contracts & Storage**
+- **Smart Contract Framework:** Hardhat, Solidity
+- **Decentralized Storage:** IPFS via Pinata SDK
+- **Network:** Ethereum Sepolia Testnet
+
 ## Problem
 
 Most people sign contracts they barely understand, and they often paste entire contracts into public AI tools to get help.
@@ -18,7 +52,7 @@ There is no simple, privacy‑first way for two normal people (or small teams) t
 2. Get a neutral, onchain record of *exactly* what they both agreed to and when.  
 3. Optionally lock funds in escrow so payments follow simple, transparent rules.
 
-## Solution
+## Solution Architecture: "Zero-Hypocrisy" (No Database)
 
 Concordia combines **Venice** (private AI inference) with **Ethereum** (public, verifiable agreements and escrow):
 
@@ -94,6 +128,43 @@ The v1 hackathon demo focuses on an automated, entirely decentralized flow:
 
 5. **Explorer and UI transparency**  
    - The UI provides an audit log showing exactly when the room was made, when the autonomous agent joined to analyze it, and when users agreed.
+
+## 🚀 How to Run Locally
+
+To test the entire Autonomous flow end-to-end, you must run both the Frontend and the Backend Agent.
+
+### Prerequisite Setup
+1. Clone the repository.
+2. Ensure you have Node.js installed.
+3. You will need a Sepolia wallet with testnet ETH.
+4. Rename `.env_sample` to `.env` in both the `concordia-frontend` and `concordia-agent` directories and fill out your API Keys (Venice, Pinata, WalletConnect, Infura/Alchemy, and your Private Key).
+
+### 1. Start the Frontend
+The frontend is a modern Next.js 15 application using Wagmi/RainbowKit for Web3 authentication.
+
+```bash
+cd concordia-frontend
+npm install
+npm run dev
+```
+Navigate to `http://localhost:3000`.
+
+### 2. Start the Autonomous Agent
+The agent is a separate Node.js daemon that listens to the blockchain independently.
+
+```bash
+cd concordia-agent
+npm install
+npm start
+```
+
+### 3. The End-to-End Test
+1. In the browser (`http://localhost:3000`), connect your MetaMask wallet.
+2. Scroll to **Create New Agreement Room**.
+3. Paste a secondary wallet address in the `Other Party Address`.
+4. Write some fake contract terms in the large text box and press **Create Agreement Room**, then approve the MetaMask transaction.
+5. **Watch the Agent Terminal!** Within seconds, you should see the Agent detect the event, fetch the text from IPFS, analyze it privately via Venice AI, and automatically submit another blockchain response transaction.
+6. Look back at the browser; in the **Live Agreements Floor**, your Room's status will update, and the Venice AI Private Risk Analysis will appear! Both parties can now click **"I Accept the Terms"** to finalize the contract.
 
 ## How this fits Synthesis + Venice
 

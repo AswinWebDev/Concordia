@@ -34,7 +34,7 @@ export default function CreateRoom() {
       if (!data.ipfsHash) throw new Error("Upload failed");
       
       writeContract({
-        address: CONTRACT_ADDRESS || "0xD65f31De415eF96B0cBa07034d7C35EcbE3a8277",
+        address: CONTRACT_ADDRESS || "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC",
         abi: abiData,
         functionName: 'createRoom',
         args: [otherParty as `0x${string}`, data.ipfsHash],
