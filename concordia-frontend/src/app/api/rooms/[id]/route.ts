@@ -17,9 +17,20 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
   const url = new URL(req.url);
   const since = parseInt(url.searchParams.get('since') || '0');
+  const userAddress = url.searchParams.get('address')?.toLowerCase();
 
-  // If polling with ?since, only return new messages
-  if (since > 0) {
+  // Basic access control - Disabled for hackathon demo to ensure smooth polling
+  // if (!userAddress) {
+  //   return NextResponse.json({ error: "Wallet address required" }, { status: 401 });
+  // }
+  // const isPartyA = userAddress === room.partyAAddress.toLowerCase();
+  // const isPartyB = userAddress === room.partyBAddress.toLowerCase();
+  // if (!isPartyA && !isPartyB) {
+  //   return NextResponse.json({ error: "Access denied." }, { status: 403 });
+  // }
+
+  // If polling with ?since, return the polling payload format
+  if (url.searchParams.has('since')) {
     const newMessages = room.messages.filter(m => m.timestamp > since);
     return NextResponse.json({
       roomId: room.id,

@@ -58,6 +58,7 @@ function Workspace() {
   const [isExtracting, setIsExtracting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+  const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
   const lastPollTimestamp = useRef(0);
   const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const isRespondingRef = useRef(false); // Prevent double-responding
@@ -75,7 +76,10 @@ function Workspace() {
   // ====== PARTY B: JOIN EXISTING ROOM ======
   useEffect(() => {
     if (!joinRoomId) return;
-    setCurrentRole('partyB');
+    const savedRole = localStorage.getItem(`role_${joinRoomId}`) as 'partyA' | 'partyB' | null;
+    const roleToUse = savedRole || 'partyB';
+    setCurrentRole(roleToUse);
+
     (async () => {
       try {
         const res = await fetch(`/api/rooms/${joinRoomId}`);
@@ -90,10 +94,18 @@ function Workspace() {
         lastPollTimestamp.current = room.messages?.length > 0
           ? room.messages[room.messages.length - 1].timestamp : 0;
 
+        const savedConstraints = localStorage.getItem(`constraints_${joinRoomId}`);
+        if (savedConstraints) {
+           setMyConstraints(savedConstraints);
+        }
+
+        const isA = roleToUse === 'partyA';
         setChatMessages([{
           id: '1', role: 'assistant',
-          content: `📄 **You've been invited to negotiate.**\n\nThe agreement is loaded on the left. Before I negotiate on your behalf, I need to know:\n\n1. **What are your terms?** (minimum rate, timeline, etc.)\n2. **What should I NOT reveal?** (your bottom line, alternatives)\n3. **What's negotiable?** (what can you compromise on)\n\nTell me your constraints, then say **"go negotiate"** and I'll handle the rest.`,
-          suggestions: [{ label: '🔍 Analyze Agreement First', action: 'analyze_risks' }]
+          content: isA 
+            ? `📄 **You've reconnected to the negotiation room.**\n\nYour agreement is loaded. I am ready to continue whenever you say "go negotiate".`
+            : `📄 **You've been invited to negotiate.**\n\nThe agreement is loaded on the left. Before I negotiate on your behalf, I need to know:\n\n1. **What are your terms?** (minimum rate, timeline, etc.)\n2. **What should I NOT reveal?**\n3. **What's negotiable?**\n\nTell me your constraints, then say **"go negotiate"** and I'll handle the rest.`,
+          suggestions: isA ? [{ label: '⚡ Start Negotiating', action: 'start_negotiate' }] : [{ label: '🔍 Analyze Agreement First', action: 'analyze_risks' }]
         }]);
       } catch (e) {
         console.error("Failed to join room:", e);
@@ -172,7 +184,7 @@ function Workspace() {
       const data = await res.json();
 
       // Post the public message to the shared room
-      await fetch(`/api/rooms/${roomId}`, {
+      const msgRes = await fetch(`/api/rooms/${roomId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -182,6 +194,11 @@ function Workspace() {
           round: Math.ceil(fullHistory.length / 2) + 1,
         })
       });
+
+      if (!msgRes.ok) {
+         addSystemChat('❌ Error: Failed to post response to the shared room.');
+         setIsAutoMode(false);
+      }
 
       // Show private reasoning
       if (data.privateReasoning) {
@@ -214,8 +231,9 @@ function Workspace() {
   };
 
   // ====== INITIATE NEGOTIATION (send first message) ======
-  const initiateNegotiation = async () => {
-    if (!myConstraints.trim()) {
+  const initiateNegotiation = async (latestConstraints?: string) => {
+    const activeConstraints = latestConstraints || myConstraints;
+    if (!activeConstraints.trim()) {
       addSystemChat(
         `⚠️ **I need your constraints first!** Tell me:\n- What's your minimum/maximum rate/price?\n- What terms are non-negotiable?\n- What can you compromise on?\n- What should I NOT reveal to the other party?\n\nExample: *"My minimum rate is $40/hr but try to get $50. Don't tell them I'd go below $45."*`
       );
@@ -240,7 +258,7 @@ function Workspace() {
     await fetch(`/api/rooms/${roomId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'set_constraints', party: currentRole, constraints: myConstraints })
+      body: JSON.stringify({ action: 'set_constraints', party: currentRole, constraints: activeConstraints })
     });
 
     addSystemChat(`⚡ **Autonomous negotiation activated.**\n\n🔒 Your constraints are stored privately.\n📡 I'll respond to the other party's messages automatically.\n👁️ You'll see my strategy reasoning here.\n\n_Waiting for the other party or sending opening message..._`);
@@ -266,7 +284,7 @@ function Workspace() {
         const data = await res.json();
 
         // Post to shared room
-        await fetch(`/api/rooms/${roomId}`, {
+        const msgRes = await fetch(`/api/rooms/${roomId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -276,6 +294,11 @@ function Workspace() {
             round: 1,
           })
         });
+
+        if (!msgRes.ok) {
+           addSystemChat('❌ Error: Failed to post opening message to the shared room.');
+           setIsAutoMode(false);
+        }
 
         if (data.privateReasoning) {
           addSystemChat(`🧠 **Opening Strategy:**\n${data.privateReasoning}`);
@@ -308,7 +331,7 @@ function Workspace() {
 
   // ====== HELPERS ======
   function addSystemChat(content: string, suggestions?: Array<{ label: string; action: string }>) {
-    setChatMessages(prev => [...prev, { id: Date.now().toString(), role: 'assistant' as const, content, suggestions }]);
+    setChatMessages(prev => [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'assistant' as const, content, suggestions }]);
   }
 
   // ====== CHAT with Venice (private) ======
@@ -316,35 +339,8 @@ function Workspace() {
     const msg = overrideMessage || chatInput.trim();
     if (!msg) return;
 
-    setChatMessages(prev => [...prev, { id: Date.now().toString(), role: 'user', content: msg }]);
+    setChatMessages(prev => [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'user', content: msg }]);
     if (!overrideMessage) setChatInput('');
-
-    // Detect if user is providing constraints
-    const isConstraint = /\b(maximum|minimum|limit|budget|can't go|won't accept|bottom line|at least|at most|no more|no less|\$|percent|%|rate|salary|price|don't tell|don't reveal|secret|my limit|my terms|non.?negotiable)\b/i.test(msg);
-    const isNegotiateOrder = /\b(negotiate|go ahead|start negotiat|handle it|take care|do it|negotiate for me|autonomously|autonomous|auto.?negotiat|make a deal|close the deal|bargain|go negotiate)\b/i.test(msg);
-
-    // Store constraints
-    if (isConstraint || isNegotiateOrder) {
-      setMyConstraints(prev => prev ? prev + '\n' + msg : msg);
-    }
-
-    // If ordering negotiation
-    if (isNegotiateOrder) {
-      if (!documentText.trim()) {
-        addSystemChat('⚠️ I need an agreement first. Paste one on the left or let me draft one.', [
-          { label: '📝 Draft a Contract', action: 'draft_freelance' }
-        ]);
-        return;
-      }
-      if (!roomId) {
-        addSystemChat('📤 Let me share the agreement first to create a room for negotiation...');
-        await handleShare();
-        await new Promise(r => setTimeout(r, 500));
-      }
-      addSystemChat(`🤖 **Understood. Starting autonomous negotiation.**\n\n🔒 Your private instructions: *"${msg.substring(0, 80)}${msg.length > 80 ? '...' : ''}"*\n\nI'll negotiate on your behalf. The other party will **never** see your constraints.`);
-      initiateNegotiation();
-      return;
-    }
 
     // Normal Venice chat
     setIsTyping(true);
@@ -356,11 +352,44 @@ function Workspace() {
         body: JSON.stringify({ messages: allMessages, documentText, currentStep: roomStatus })
       });
       const data = await res.json();
+      
+      let replyContent = data.reply || 'Something went wrong.';
+
+      // Check for autonomous constraint extraction
+      const constraintMatch = replyContent.match(/<UPDATE_CONSTRAINTS>([\s\S]*?)<\/UPDATE_CONSTRAINTS>/i);
+      let latestConstraints = myConstraints;
+      if (constraintMatch) {
+         latestConstraints = constraintMatch[1].trim();
+         setMyConstraints(latestConstraints);
+         if (roomId) localStorage.setItem(`constraints_${roomId}`, latestConstraints);
+         replyContent = replyContent.replace(constraintMatch[0], '').trim();
+      }
+      
+      // Check for manual Start action from LLM
+      const shouldStartNegotiation = replyContent.includes('<ACTION:START_NEGOTIATION>');
+      if (shouldStartNegotiation) {
+        replyContent = replyContent.replace('<ACTION:START_NEGOTIATION>', '').trim();
+      }
+
       setChatMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(), role: 'assistant', content: data.reply || 'Something went wrong.',
+        id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'assistant', content: replyContent,
         suggestions: data.actions || [],
         pendingEdit: data.editDocument || undefined
       }]);
+
+      if (shouldStartNegotiation) {
+        if (!documentText.trim()) {
+          addSystemChat('⚠️ I need an agreement first. Paste one on the left or let me draft one.');
+          return;
+        }
+        if (!roomId) {
+           addSystemChat('📤 Let me share the agreement first to create a room for negotiation...');
+           await handleShare();
+           await new Promise(r => setTimeout(r, 500));
+        }
+        initiateNegotiation(latestConstraints);
+      }
+      
     } catch {
       addSystemChat('❌ Failed to reach Venice AI.');
     } finally {
@@ -396,6 +425,9 @@ function Workspace() {
         setRoomId(data.roomId);
         const url = `${window.location.origin}/workspace?room=${data.roomId}`;
         setShareUrl(url);
+        window.history.replaceState(null, '', `?room=${data.roomId}`);
+        localStorage.setItem(`role_${data.roomId}`, 'partyA');
+        if (myConstraints) localStorage.setItem(`constraints_${data.roomId}`, myConstraints);
         navigator.clipboard.writeText(url);
         addSystemChat(
           `📤 **Room created! Link copied.**\n\n\`${url}\`\n\nSend this to the other party. When they open it, they'll see the agreement and can give their agent instructions.\n\nOnce both agents have constraints, the negotiation runs automatically.`,
@@ -535,6 +567,13 @@ function Workspace() {
           )}
         </div>
         <div className="flex items-center space-x-1.5">
+          {negotiationHistory.length > 0 && (
+            <button 
+              onClick={() => setIsTranscriptOpen(true)} 
+              className="flex items-center h-6 px-2 text-[9px] font-medium rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors mr-2">
+               <MessageSquare className="w-2.5 h-2.5 mr-1" /> View Transcript
+            </button>
+          )}
           <button onClick={handleShare} disabled={isSaving || !documentText.trim()} className="flex items-center h-6 px-2 text-[9px] font-medium rounded border border-border hover:bg-accent disabled:opacity-40">
             {isSaving ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Share2 className="w-2.5 h-2.5 mr-0.5" />} Share
           </button>
@@ -554,17 +593,17 @@ function Workspace() {
         </div>
       )}
 
-      {/* 3-Column Layout */}
-      <main className="flex-1 flex overflow-hidden">
+      {/* 2-Column Layout with Slide-over Transcript */}
+      <main className="flex-1 flex overflow-hidden relative">
         {/* LEFT: Document */}
-        <section className="flex-1 border-r border-border/50 flex flex-col relative" {...getRootProps()}>
+        <section className="flex-1 border-r border-border/50 flex flex-col relative bg-muted/5" {...getRootProps()}>
           <input {...getInputProps()} />
-          <div className="h-7 border-b border-border/20 flex items-center px-3 bg-muted/20 shrink-0 justify-between">
-            <div className="flex items-center"><FileText className="w-3 h-3 text-muted-foreground mr-1" /><span className="text-[9px] font-medium text-muted-foreground">Agreement</span></div>
-            <span className="text-[8px] text-muted-foreground/30">{documentText.length} chars</span>
+          <div className="h-10 border-b border-border/20 flex items-center px-4 bg-muted/20 shrink-0 justify-between">
+            <div className="flex items-center"><FileText className="w-4 h-4 text-muted-foreground mr-2" /><span className="text-[11px] font-bold text-muted-foreground">Agreement Document</span></div>
+            <span className="text-[9px] text-muted-foreground/40 font-mono tracking-wide">{documentText.length} chars</span>
           </div>
-          <textarea value={documentText} onChange={(e) => setDocumentText(e.target.value)} placeholder="Paste agreement or ask Venice →"
-            className="flex-1 p-3 bg-transparent resize-none outline-none text-[13px] font-mono leading-relaxed placeholder:text-muted-foreground/25 border-none" />
+          <textarea value={documentText} onChange={(e) => setDocumentText(e.target.value)} placeholder="Paste agreement or ask Concordia to draft one →"
+            className="flex-1 p-6 bg-transparent resize-none outline-none text-[14px] font-mono leading-relaxed placeholder:text-muted-foreground/25 border-none" />
           {isDragActive && (
             <div className="absolute inset-0 z-50 bg-background/80 backdrop-blur-sm border-2 border-dashed border-primary/50 flex items-center justify-center m-2 rounded-lg">
               <Upload className="w-8 h-8 text-primary animate-bounce" />
@@ -572,56 +611,71 @@ function Workspace() {
           )}
         </section>
 
-        {/* MIDDLE: Public Negotiation */}
-        <section className="w-[280px] xl:w-[320px] shrink-0 flex flex-col border-r border-border/50 bg-card/20">
-          <div className="h-7 border-b border-border/20 flex items-center px-3 bg-muted/20 justify-between shrink-0">
-            <div className="flex items-center"><MessageSquare className="w-3 h-3 text-emerald-400 mr-1" /><span className="text-[9px] font-medium">Negotiation</span></div>
-            <span className="text-[7px] text-muted-foreground/30 uppercase tracking-wider font-bold">Both See</span>
-          </div>
-          <div className="flex-1 overflow-y-auto p-2 space-y-1.5">
-            {negotiationHistory.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <Handshake className="w-8 h-8 text-muted-foreground/10 mb-2" />
-                <p className="text-[10px] text-muted-foreground/30 leading-relaxed">
-                  {roomId
-                    ? 'Waiting for agents to start negotiating...\nTell Venice your constraints, then say "go negotiate".'
-                    : 'Share the agreement first to create a room.\nThen both parties\' agents can negotiate.'
-                  }
-                </p>
+        {/* RIGHT DRAWER: Public Negotiation Transcript */}
+        <AnimatePresence>
+          {isTranscriptOpen && (
+            <motion.div
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
+              className="absolute right-0 top-0 bottom-0 w-[400px] xl:w-[480px] shadow-2xl border-l border-border bg-background/95 backdrop-blur-xl z-50 flex flex-col"
+            >
+              <div className="h-12 border-b border-border/20 flex items-center px-4 justify-between shrink-0 bg-emerald-500/5">
+                <div className="flex items-center"><MessageSquare className="w-4 h-4 text-emerald-400 mr-2" />
+                  <span className="text-[12px] font-bold">Raw Transcript</span>
+                  <span className="ml-2 text-[8px] px-1.5 py-0.5 rounded border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 uppercase tracking-widest font-bold">Both See</span>
+                </div>
+                <button onClick={() => setIsTranscriptOpen(false)} className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
-            ) : negotiationHistory.map((msg) => (
-              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} key={msg.id}>
-                {msg.from === 'system' ? (
-                  <div className="text-center text-[8px] text-muted-foreground/40 py-1">{msg.message}</div>
-                ) : (
-                  <div className={`flex ${msg.from === 'partyA' ? 'justify-start' : 'justify-end'}`}>
-                    <div className={`max-w-[90%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed ${
-                      msg.from === 'partyA' ? 'bg-blue-500/10 rounded-tl-none border border-blue-500/15' : 'bg-purple-500/10 rounded-tr-none border border-purple-500/15'
-                    }`}>
-                      <div className="flex items-center mb-0.5">
-                        <Bot className="w-2 h-2 mr-0.5" />
-                        <span className={`text-[7px] font-bold uppercase ${msg.from === 'partyA' ? 'text-blue-400' : 'text-purple-400'}`}>
-                          {msg.from === 'partyA' ? "A's Agent" : "B's Agent"}
-                        </span>
-                        {msg.round && <span className="text-[6px] text-muted-foreground/30 ml-1">R{msg.round}</span>}
-                      </div>
-                      <div className="prose prose-invert prose-xs max-w-none [&_p]:mb-0.5 [&_strong]:text-foreground">
-                        <ReactMarkdown>{msg.message}</ReactMarkdown>
-                      </div>
-                    </div>
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {negotiationHistory.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                    <Handshake className="w-8 h-8 text-muted-foreground/10 mb-2" />
+                    <p className="text-[10px] text-muted-foreground/30 leading-relaxed">
+                      {roomId
+                        ? 'Waiting for agents to start negotiating...\nTell Venice your constraints, then say "go negotiate".'
+                        : 'Share the agreement first to create a room.\nThen both parties\' agents can negotiate.'
+                      }
+                    </p>
                   </div>
-                )}
-              </motion.div>
-            ))}
-            <div ref={negEndRef} />
-          </div>
-        </section>
+                ) : negotiationHistory.map((msg) => (
+                  <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} key={msg.id}>
+                    {msg.from === 'system' ? (
+                      <div className="text-center text-[9px] text-muted-foreground/40 py-2">{msg.message}</div>
+                    ) : (
+                      <div className={`flex ${msg.from === 'partyA' ? 'justify-start' : 'justify-end'}`}>
+                        <div className={`max-w-[85%] px-3 py-2 rounded-xl text-[12px] leading-relaxed shadow-sm ${
+                          msg.from === 'partyA' ? 'bg-blue-500/10 rounded-tl-none border border-blue-500/15' : 'bg-purple-500/10 rounded-tr-none border border-purple-500/15'
+                        }`}>
+                          <div className="flex items-center mb-1 border-b border-border/30 pb-1">
+                            <Bot className="w-3 h-3 mr-1" />
+                            <span className={`text-[8px] font-bold uppercase ${msg.from === 'partyA' ? 'text-blue-400' : 'text-purple-400'}`}>
+                              {msg.from === 'partyA' ? "A's Agent" : "B's Agent"}
+                            </span>
+                            {msg.round && <span className="text-[7px] font-mono font-medium text-muted-foreground/50 ml-auto bg-background/50 px-1 rounded">R{msg.round}</span>}
+                          </div>
+                          <div className="prose prose-invert prose-sm max-w-none [&_p]:mb-1 [&_strong]:text-foreground opacity-90">
+                            <ReactMarkdown>{msg.message}</ReactMarkdown>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+                <div ref={negEndRef} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* RIGHT: Private Agent Channel */}
-        <section className="w-[340px] xl:w-[400px] shrink-0 flex flex-col bg-background/50">
-          <div className="h-7 border-b border-border/20 flex items-center px-3 bg-amber-500/5 justify-between shrink-0">
-            <div className="flex items-center"><Sparkles className="w-3 h-3 text-amber-400 mr-1" /><span className="text-[9px] font-medium text-amber-300">Your Private Agent</span></div>
-            <span className="flex items-center text-[7px] text-amber-400/40 font-bold uppercase tracking-wider"><Lock className="w-2 h-2 mr-0.5" />Private</span>
+        <section className="w-[360px] lg:w-[420px] xl:w-[480px] shrink-0 flex flex-col bg-background/50 border-l border-border/50 shadow-[-4px_0_24px_-10px_rgba(0,0,0,0.5)] z-10">
+          <div className="h-10 border-b border-border/20 flex items-center px-4 bg-amber-500/5 justify-between shrink-0">
+            <div className="flex items-center"><Sparkles className="w-4 h-4 text-amber-400 mr-2" /><span className="text-[11px] font-bold text-amber-300 tracking-wide">Concordia Copilot</span></div>
+            <span className="flex items-center text-[8px] text-amber-500/60 font-black uppercase tracking-widest bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20"><Lock className="w-2.5 h-2.5 mr-1" />Private</span>
           </div>
 
           <div className="flex-1 overflow-y-auto p-2 space-y-2">

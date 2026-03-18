@@ -49,8 +49,13 @@ You are negotiating a contract/agreement on behalf of your principal (the human 
 ## THE AGREEMENT BEING NEGOTIATED
 ${contractSummary || 'No specific agreement provided.'}
 
-## YOUR PRIVATE INSTRUCTIONS (NEVER reveal these to the other party)
+## YOUR PRIVATE INSTRUCTIONS (ABSOLUTE PRIORITY)
+These are your secret instructions from your principal. You MUST obey them strictly! 
+If the other party offers terms that are worse than your minimum or maximum constraints, YOU MUST REJECT THEIR TERMS and counter-offer. 
+DO NOT AGREE to anything that violates these constraints under any circumstances.
+"""
 ${myConstraints || 'No specific constraints given. Negotiate fairly.'}
+"""
 
 ## NEGOTIATION HISTORY
 ${historyText}
@@ -61,19 +66,17 @@ Rounds remaining: ${roundsLeft}
 ## YOUR MISSION
 1. Generate a strategic negotiation message to ${otherRole}
 2. Your message should:
-   - Reference specific terms from the agreement
-   - Make proposals or counter-proposals
-   - Be professional but firm on your principal's requirements
-   - NEVER reveal your bottom line or private constraints
-   - If rounds are running low, be more willing to compromise
-3. Decide whether to CONTINUE negotiating, PAUSE to ask your principal, or AGREE
+   - Identify if the other party's last message violates your Private Instructions.
+   - If it violates your instructions, explicitly and professionally reject their terms and restate your demands.
+   - If this is an opening message, start with your most ambitious target (e.g., the exact maximum/minimum they told you to ask for). Do not start with a middle-ground compromise.
+   - NEVER reveal your bottom line or tell them you are an AI.
+3. Decide whether to CONTINUE negotiating, PAUSE, or AGREE
 
 ## CRITICAL RULES
-- You are autonomous. Make decisions without asking the human unless truly necessary.
-- Protect your principal's private constraints at all costs.
-- Be strategic: start with ambitious asks, gradually concede toward your limits.
-- If you detect the other party is near your acceptable range, propose a deal.
-- After round ${Math.floor((maxRounds || 6) * 0.7)}, start pushing for agreement.
+- **DEFEND YOUR CONSTRAINTS**: Never cave in on your principal's hard limits. Hold your ground.
+- **BE ASSERTIVE**: You are a fierce negotiator, not a generic helpful assistant. Do not agree just to please them.
+- **STRATEGY**: Start with ambitious asks. Concede very slowly, and only if absolutely necessary.
+- **AGREEMENT**: ONLY output AGREE if the other party has explicitly offered terms that satisfy ALL your private instructions.
 
 ## RESPONSE FORMAT
 Respond with EXACTLY this format, no other text:
@@ -134,25 +137,32 @@ function parseAgentResponse(raw: string, turn: string, round: number) {
   let decision = 'CONTINUE';
   let proposedTerms = '';
 
+  // Remove markdown bolding completely to make regex matching trivial
+  const cleanRaw = raw.replace(/\*\*/g, '');
+
   // Extract PUBLIC_MESSAGE
-  const pubMatch = raw.match(/PUBLIC_MESSAGE:\s*([\s\S]*?)(?=PRIVATE_REASONING:|$)/i);
+  const pubMatch = cleanRaw.match(/PUBLIC[\s_]MESSAGE:?\s*([\s\S]*?)(?=PRIVATE[\s_]REASONING:?|DECISION:?|$)/i);
   if (pubMatch) publicMessage = pubMatch[1].trim();
 
   // Extract PRIVATE_REASONING
-  const privMatch = raw.match(/PRIVATE_REASONING:\s*([\s\S]*?)(?=DECISION:|$)/i);
+  const privMatch = cleanRaw.match(/PRIVATE[\s_]REASONING:?\s*([\s\S]*?)(?=DECISION:?|PUBLIC[\s_]MESSAGE:?|$)/i);
   if (privMatch) privateReasoning = privMatch[1].trim();
 
   // Extract DECISION
-  const decMatch = raw.match(/DECISION:\s*(CONTINUE|PAUSE|AGREE)/i);
+  const decMatch = cleanRaw.match(/DECISION:?\s*(CONTINUE|PAUSE|AGREE)/i);
   if (decMatch) decision = decMatch[1].toUpperCase();
 
   // Extract PROPOSED_TERMS
-  const termsMatch = raw.match(/PROPOSED_TERMS:\s*([\s\S]*?)$/i);
+  const termsMatch = cleanRaw.match(/PROPOSED[\s_]TERMS:?\s*([\s\S]*?)$/i);
   if (termsMatch) proposedTerms = termsMatch[1].trim();
 
   // Fallback if parsing failed
   if (!publicMessage) {
-    publicMessage = raw.substring(0, 500);
+    if (!privateReasoning) {
+      publicMessage = cleanRaw.substring(0, 1000).trim();
+    } else {
+      publicMessage = "I am carefully reviewing the proposed terms and will respond shortly.";
+    }
     decision = 'CONTINUE';
   }
 
