@@ -89,7 +89,7 @@ contract AgreementRoom {
      */
     function createRoom(address _partyB, string memory _contractIPFSHash) external returns (uint256) {
         require(_partyB != address(0), "Invalid party B address");
-        require(_partyB != msg.sender, "Cannot create room with yourself");
+        // Removed self-check to allow hackathon testing with a single wallet account
         
         uint256 roomId = nextRoomId++;
         

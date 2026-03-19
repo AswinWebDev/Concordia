@@ -30,6 +30,8 @@ export type Room = {
   agreedTerms: string;
   createdAt: number;
   roundNumber: number;
+  partyAAgreed?: boolean;
+  partyBAgreed?: boolean;
 };
 
 // Global store — persists as long as the Next.js dev server runs

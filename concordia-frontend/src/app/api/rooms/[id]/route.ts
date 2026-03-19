@@ -41,6 +41,8 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       agreedTerms: room.agreedTerms,
       partyAAutoMode: room.partyAAutoMode,
       partyBAutoMode: room.partyBAutoMode,
+      partyAAgreed: room.partyAAgreed,
+      partyBAgreed: room.partyBAgreed,
     });
   }
 
@@ -56,6 +58,8 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     agreedTerms: room.agreedTerms,
     partyAAutoMode: room.partyAAutoMode,
     partyBAutoMode: room.partyBAutoMode,
+    partyAAgreed: room.partyAAgreed,
+    partyBAgreed: room.partyBAgreed,
     createdAt: room.createdAt,
   });
 }
@@ -107,6 +111,13 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         room.partyBAutoMode = enabled;
       }
       return NextResponse.json({ ok: true });
+    }
+
+    case 'mark_agreed': {
+      const { party } = body;
+      if (party === 'partyA') room.partyAAgreed = true;
+      if (party === 'partyB') room.partyBAgreed = true;
+      return NextResponse.json({ ok: true, partyAAgreed: room.partyAAgreed, partyBAgreed: room.partyBAgreed });
     }
 
     case 'agree': {

@@ -620,5 +620,17 @@
       "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
       "pollInterval": 5000
     }
+  },
+  {
+    "timestamp": "2026-03-19T08:53:43.461Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Agent Started",
+    "metadata": {
+      "rpc": "https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430",
+      "contract": "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC",
+      "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
+      "pollInterval": 5000
+    }
   }
 ]

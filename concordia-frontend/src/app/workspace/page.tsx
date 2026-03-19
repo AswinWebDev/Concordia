@@ -27,7 +27,7 @@ export default function WorkspacePage() {
 type NegotiationMessage = { id: string; from: 'partyA' | 'partyB' | 'system'; message: string; timestamp: number; round?: number };
 type ChatMessage = { id: string; role: 'user' | 'assistant' | 'system'; content: string; suggestions?: Array<{ label: string; action: string }>; pendingEdit?: string };
 
-const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS || "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC") as `0x${string}`;
+const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS || "0xafF5030fA5Ed5120E29C75b9F4779647e71ddc55") as `0x${string}`;
 const MAX_ROUNDS = 6;
 const POLL_INTERVAL = 2500; // Poll every 2.5s
 
@@ -47,6 +47,8 @@ function Workspace() {
   const [negotiationHistory, setNegotiationHistory] = useState<NegotiationMessage[]>([]);
   const [roomStatus, setRoomStatus] = useState<string>('waiting');
   const [agreedTerms, setAgreedTerms] = useState('');
+  const [partyAAgreed, setPartyAAgreed] = useState(false);
+  const [partyBAgreed, setPartyBAgreed] = useState(false);
 
   // ====== LOCAL STATE ======
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -90,6 +92,8 @@ function Workspace() {
         setOtherParty(room.partyAAddress || '');
         setNegotiationHistory(room.messages || []);
         setRoomStatus(room.status);
+        if (room.partyAAgreed) setPartyAAgreed(room.partyAAgreed);
+        if (room.partyBAgreed) setPartyBAgreed(room.partyBAgreed);
         setPhase('workspace');
         lastPollTimestamp.current = room.messages?.length > 0
           ? room.messages[room.messages.length - 1].timestamp : 0;
@@ -145,6 +149,8 @@ function Workspace() {
         // Update room status
         if (data.status) setRoomStatus(data.status);
         if (data.agreedTerms) setAgreedTerms(data.agreedTerms);
+        if (data.partyAAgreed !== undefined) setPartyAAgreed(data.partyAAgreed);
+        if (data.partyBAgreed !== undefined) setPartyBAgreed(data.partyBAgreed);
       } catch (e) {
         console.error("Poll error:", e);
       }
@@ -263,54 +269,69 @@ function Workspace() {
 
     addSystemChat(`⚡ **Autonomous negotiation activated.**\n\n🔒 Your constraints are stored privately.\n📡 I'll respond to the other party's messages automatically.\n👁️ You'll see my strategy reasoning here.\n\n_Waiting for the other party or sending opening message..._`);
 
-    // If no messages yet, send opening message
-    if (negotiationHistory.filter(m => m.from !== 'system').length === 0) {
-      try {
-        const res = await fetch('/api/agent-loop', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            currentTurn: currentRole,
-            partyAConstraints: currentRole === 'partyA' ? myConstraints : '',
-            partyBConstraints: currentRole === 'partyB' ? myConstraints : '',
-            negotiationHistory: [],
-            contractSummary: documentText.substring(0, 3000),
-            roundNumber: 1,
-            maxRounds: MAX_ROUNDS,
-          })
-        });
+    // Filter out system messages
+    const realHistory = negotiationHistory.filter(m => m.from !== 'system');
 
-        if (!res.ok) throw new Error("Agent API error");
-        const data = await res.json();
+    // If no messages yet, send opening message (Only Party A does this)
+    if (realHistory.length === 0) {
+      if (currentRole === 'partyA') {
+        try {
+          const res = await fetch('/api/agent-loop', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              currentTurn: currentRole,
+              partyAConstraints: myConstraints,
+              partyBConstraints: '',
+              negotiationHistory: [],
+              contractSummary: documentText.substring(0, 3000),
+              roundNumber: 1,
+              maxRounds: MAX_ROUNDS,
+            })
+          });
 
-        // Post to shared room
-        const msgRes = await fetch(`/api/rooms/${roomId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'add_message',
-            from: currentRole,
-            message: data.publicMessage,
-            round: 1,
-          })
-        });
+          if (!res.ok) throw new Error("Agent API error");
+          const data = await res.json();
 
-        if (!msgRes.ok) {
-           addSystemChat('❌ Error: Failed to post opening message to the shared room.');
-           setIsAutoMode(false);
+          // Post to shared room
+          const msgRes = await fetch(`/api/rooms/${roomId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'add_message',
+              from: currentRole,
+              message: data.publicMessage,
+              round: 1,
+            })
+          });
+
+          if (!msgRes.ok) {
+             addSystemChat('❌ Error: Failed to post opening message to the shared room.');
+             setIsAutoMode(false);
+          }
+
+          if (data.privateReasoning) {
+            addSystemChat(`🧠 **Opening Strategy:**\n${data.privateReasoning}`);
+          }
+        } catch (e) {
+          addSystemChat('❌ Failed to send opening message.', [
+            { label: '🔄 Retry', action: 'continue_negotiate' }
+          ]);
         }
-
-        if (data.privateReasoning) {
-          addSystemChat(`🧠 **Opening Strategy:**\n${data.privateReasoning}`);
-        }
-      } catch (e) {
-        addSystemChat('❌ Failed to send opening message.', [
-          { label: '🔄 Retry', action: 'continue_negotiate' }
-        ]);
+      }
+      setIsWaitingForAgent(false);
+    } else {
+      // There are existing messages! Check if we need to reply immediately
+      const lastMsg = realHistory[realHistory.length - 1];
+      const otherRole = currentRole === 'partyA' ? 'partyB' : 'partyA';
+      setIsWaitingForAgent(false); // autoRespond manages this
+      
+      if (lastMsg.from === otherRole) {
+        // The last message is from the other party. We must respond!
+        isRespondingRef.current = false;
+        autoRespond([]);
       }
     }
-
-    setIsWaitingForAgent(false);
   };
 
   // ====== FILE DROP ======
@@ -331,7 +352,7 @@ function Workspace() {
 
   // ====== HELPERS ======
   function addSystemChat(content: string, suggestions?: Array<{ label: string; action: string }>) {
-    setChatMessages(prev => [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'assistant' as const, content, suggestions }]);
+    setChatMessages(prev => [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'system' as const, content, suggestions }]);
   }
 
   // ====== CHAT with Venice (private) ======
@@ -479,9 +500,26 @@ function Workspace() {
     if (action === 'start_negotiate' || action === 'continue_negotiate') { initiateNegotiation(); return; }
     if (action === 'accept_terms') {
       const last = negotiationHistory.filter(m => m.from !== 'system').pop();
-      setAgreedTerms(last?.message || '');
+      if (last) setAgreedTerms(last.message);
       setIsAutoMode(false);
-      addSystemChat('✅ Terms accepted! Ready to finalize on-chain.', [{ label: '✅ Finalize', action: 'finalize' }]);
+      
+      if (roomId) {
+        fetch(`/api/rooms/${roomId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'mark_agreed', party: currentRole })
+        }).then(res => res.json()).then(data => {
+          if (data.partyAAgreed) setPartyAAgreed(true);
+          if (data.partyBAgreed) setPartyBAgreed(true);
+          
+          const otherAgreed = currentRole === 'partyA' ? data.partyBAgreed : data.partyAAgreed;
+          if (otherAgreed) {
+            addSystemChat('✅ **Both parties have approved!**\n\nYou can now execute the final transaction to lock this agreement on-chain.', [{ label: '⚡ Execute On-Chain', action: 'finalize' }]);
+          } else {
+            addSystemChat('✅ **You approved the terms.**\n\nWaiting for the other party to approve... Once they do, either of you can finalize this firmly on-chain.');
+          }
+        });
+      }
       return;
     }
     const message = MESSAGES[action];
@@ -577,10 +615,20 @@ function Workspace() {
           <button onClick={handleShare} disabled={isSaving || !documentText.trim()} className="flex items-center h-6 px-2 text-[9px] font-medium rounded border border-border hover:bg-accent disabled:opacity-40">
             {isSaving ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Share2 className="w-2.5 h-2.5 mr-0.5" />} Share
           </button>
-          <button onClick={handleFinalize} disabled={isPending || isConfirming || !documentText.trim()} className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-40">
-            {isPending || isConfirming ? <Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> : <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />}
-            {isConfirmed ? "Done!" : "Finalize"}
-          </button>
+          {(!partyAAgreed || !partyBAgreed) ? (
+            <button 
+              onClick={() => handleSuggestion('accept_terms')} 
+              disabled={!roomId || (currentRole === 'partyA' ? partyAAgreed : partyBAgreed)} 
+              className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-40">
+              <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />
+              {(currentRole === 'partyA' ? partyAAgreed : partyBAgreed) ? "Approved" : "Approve Terms"}
+            </button>
+          ) : (
+            <button onClick={handleFinalize} disabled={isPending || isConfirming || !documentText.trim() || isConfirmed} className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-40">
+              {isPending || isConfirming ? <Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> : <Zap className="w-2.5 h-2.5 mr-0.5" />}
+              {isConfirmed ? "Executed On-Chain!" : "Execute Final TX"}
+            </button>
+          )}
         </div>
       </div>
 
