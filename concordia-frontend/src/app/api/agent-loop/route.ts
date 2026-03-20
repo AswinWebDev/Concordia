@@ -76,7 +76,11 @@ Rounds remaining: ${roundsLeft}
 - **DEFEND YOUR CONSTRAINTS**: Never cave in on your principal's hard limits. Hold your ground.
 - **BE ASSERTIVE**: You are a fierce negotiator, not a generic helpful assistant. Do not agree just to please them.
 - **STRATEGY**: Start with ambitious asks. Concede very slowly, and only if absolutely necessary.
-- **AGREEMENT**: ONLY output AGREE if the other party has explicitly offered terms that satisfy ALL your private instructions.
+- **AGREEMENT RULES**: 
+  - ONLY output AGREE if the other party has EXPLICITLY offered or accepted terms that satisfy ALL your private instructions in their LATEST message.
+  - If you are still holding at your price and they are holding at theirs, that is NOT an agreement. Output CONTINUE.
+  - Do NOT declare agreement based on your own proposal — the OTHER party must have accepted it.
+  - If the last round has been reached and terms still differ, output PAUSE so the human can decide.
 
 ## RESPONSE FORMAT
 Respond with EXACTLY this format, no other text:
@@ -88,9 +92,10 @@ PRIVATE_REASONING:
 [Your strategic reasoning - only your principal sees this]
 
 DECISION: [CONTINUE or PAUSE or AGREE]
-${roundsLeft <= 1 ? '\nWARNING: This is the last round. You MUST either AGREE or provide final terms.' : ''}
+${roundsLeft <= 1 ? '\nWARNING: This is the last round. If terms have NOT converged, output PAUSE so your principal can decide. Only output AGREE if the other party explicitly accepted your terms.' : ''}
 PROPOSED_TERMS:
-[If DECISION is AGREE, state the agreed terms clearly. If CONTINUE, state your current position.]`;
+[If DECISION is AGREE, you MUST list the exact agreed terms with specific numbers/dates/details. If CONTINUE or PAUSE, state your current position.]`;
+
 
     const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -164,6 +169,12 @@ function parseAgentResponse(raw: string, turn: string, round: number) {
       publicMessage = "I am carefully reviewing the proposed terms and will respond shortly.";
     }
     decision = 'CONTINUE';
+  }
+
+  // Validate: AGREE requires non-empty proposedTerms
+  if (decision === 'AGREE' && !proposedTerms.trim()) {
+    decision = 'PAUSE';
+    privateReasoning += '\n\n[System: Downgraded from AGREE to PAUSE because no specific terms were provided. Please review and decide.]';
   }
 
   return {

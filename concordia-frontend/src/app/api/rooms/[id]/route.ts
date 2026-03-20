@@ -7,6 +7,7 @@ import { roomStore } from '../store';
  * 
  * Query params:
  *   ?since=<timestamp> — Only return messages after this timestamp (for efficient polling)
+ *   ?chat_history=partyA|partyB — Return private chat history for the specified party
  */
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -17,17 +18,13 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
   const url = new URL(req.url);
   const since = parseInt(url.searchParams.get('since') || '0');
-  const userAddress = url.searchParams.get('address')?.toLowerCase();
+  const chatHistoryParty = url.searchParams.get('chat_history');
 
-  // Basic access control - Disabled for hackathon demo to ensure smooth polling
-  // if (!userAddress) {
-  //   return NextResponse.json({ error: "Wallet address required" }, { status: 401 });
-  // }
-  // const isPartyA = userAddress === room.partyAAddress.toLowerCase();
-  // const isPartyB = userAddress === room.partyBAddress.toLowerCase();
-  // if (!isPartyA && !isPartyB) {
-  //   return NextResponse.json({ error: "Access denied." }, { status: 403 });
-  // }
+  // Return private chat history for a specific party
+  if (chatHistoryParty) {
+    const history = chatHistoryParty === 'partyA' ? room.partyAChatHistory : room.partyBChatHistory;
+    return NextResponse.json({ chatHistory: history });
+  }
 
   // If polling with ?since, return the polling payload format
   if (url.searchParams.has('since')) {
@@ -43,6 +40,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       partyBAutoMode: room.partyBAutoMode,
       partyAAgreed: room.partyAAgreed,
       partyBAgreed: room.partyBAgreed,
+      onChainRoomId: room.onChainRoomId,
     });
   }
 
@@ -60,6 +58,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     partyBAutoMode: room.partyBAutoMode,
     partyAAgreed: room.partyAAgreed,
     partyBAgreed: room.partyBAgreed,
+    onChainRoomId: room.onChainRoomId,
     createdAt: room.createdAt,
   });
 }
@@ -130,6 +129,37 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         timestamp: Date.now(),
       });
       return NextResponse.json({ ok: true, status: room.status });
+    }
+
+    case 'set_on_chain_room_id': {
+      const { onChainRoomId } = body;
+      if (onChainRoomId === undefined || onChainRoomId === null) {
+        return NextResponse.json({ error: "onChainRoomId required" }, { status: 400 });
+      }
+      room.onChainRoomId = Number(onChainRoomId);
+      return NextResponse.json({ ok: true, onChainRoomId: room.onChainRoomId });
+    }
+
+    case 'save_chat_history': {
+      const { party, messages: chatMessages } = body;
+      if (!party || !chatMessages) {
+        return NextResponse.json({ error: "party and messages required" }, { status: 400 });
+      }
+      if (party === 'partyA') {
+        room.partyAChatHistory = chatMessages;
+      } else {
+        room.partyBChatHistory = chatMessages;
+      }
+      return NextResponse.json({ ok: true });
+    }
+
+    case 'set_agreed_terms': {
+      const { terms } = body;
+      if (!terms) {
+        return NextResponse.json({ error: "terms required" }, { status: 400 });
+      }
+      room.agreedTerms = terms;
+      return NextResponse.json({ ok: true });
     }
 
     default:

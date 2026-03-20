@@ -62,6 +62,12 @@ contract AgreementRoom {
         _;
     }
 
+    modifier onlyParticipant(uint256 _roomId) {
+        Room storage room = rooms[_roomId];
+        require(msg.sender == room.partyA || msg.sender == room.partyB || msg.sender == agentAddress, "Not an authorized participant");
+        _;
+    }
+
     modifier onlyParty(uint256 _roomId) {
         Room storage room = rooms[_roomId];
         require(msg.sender == room.partyA || msg.sender == room.partyB, "Not a party to this room");
@@ -126,12 +132,12 @@ contract AgreementRoom {
     }
 
     /**
-     * @dev Step 3: Log a negotiation update hash (summary of negotiation progress).
-     * Called by the agent during autonomous negotiation rounds.
+     * @dev Step 3: Log a negotiation update hash (encrypted IPFS payload hash).
+     * Called by the agent or the parties to maintain decentralized state.
      */
-    function logNegotiationUpdate(uint256 _roomId, string memory _updateHash) external onlyAgent {
+    function logNegotiationUpdate(uint256 _roomId, string memory _updateHash) external onlyParticipant(_roomId) {
         Room storage room = rooms[_roomId];
-        require(room.status == RoomStatus.Negotiating, "Room not in negotiation");
+        require(room.status == RoomStatus.Negotiating || room.status == RoomStatus.Pending, "Room not in negotiation");
 
         emit NegotiationUpdate(_roomId, _updateHash);
     }

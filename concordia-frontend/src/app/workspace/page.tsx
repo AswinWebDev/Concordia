@@ -6,14 +6,16 @@ import {
   Send, Upload, FileText, Bot, User, CheckCircle2,
   Loader2, Share2, ArrowLeft, Lock, Sparkles, ArrowRight,
   PenLine, Shield, ChevronRight, MessageSquare, Handshake,
-  UserPlus, Zap, Copy, Play, Pause, AlertTriangle, RefreshCw
+  UserPlus, Zap, Copy, Play, Pause, AlertTriangle, RefreshCw,
+  Download, ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDropzone } from 'react-dropzone';
-import { useWriteContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi';
 import ReactMarkdown from 'react-markdown';
 import abiData from '../../contracts/AgreementRoomABI.json';
+import { generateRoomKey, encryptData, saveRoomKey, deriveKeyFromAddress } from '../../lib/crypto';
 
 export default function WorkspacePage() {
   return (
@@ -27,7 +29,8 @@ export default function WorkspacePage() {
 type NegotiationMessage = { id: string; from: 'partyA' | 'partyB' | 'system'; message: string; timestamp: number; round?: number };
 type ChatMessage = { id: string; role: 'user' | 'assistant' | 'system'; content: string; suggestions?: Array<{ label: string; action: string }>; pendingEdit?: string };
 
-const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS || "0xafF5030fA5Ed5120E29C75b9F4779647e71ddc55") as `0x${string}`;
+const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS as `0x${string}`;
+const AGENT_ADDRESS = process.env.NEXT_PUBLIC_AGENT_ADDRESS || '';
 const MAX_ROUNDS = 6;
 const POLL_INTERVAL = 2500; // Poll every 2.5s
 
@@ -49,6 +52,7 @@ function Workspace() {
   const [agreedTerms, setAgreedTerms] = useState('');
   const [partyAAgreed, setPartyAAgreed] = useState(false);
   const [partyBAgreed, setPartyBAgreed] = useState(false);
+  const [onChainRoomId, setOnChainRoomId] = useState<number | null>(null);
 
   // ====== LOCAL STATE ======
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -75,6 +79,37 @@ function Workspace() {
   useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [chatMessages]);
   useEffect(() => { negEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [negotiationHistory]);
 
+  // ====== SAVE CHAT TO SERVER (debounced) ======
+  const saveChatTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const saveChatToServer = useCallback((messages: ChatMessage[], rId: string, role: string) => {
+    if (saveChatTimeoutRef.current) clearTimeout(saveChatTimeoutRef.current);
+    saveChatTimeoutRef.current = setTimeout(() => {
+      fetch(`/api/rooms/${rId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'save_chat_history',
+          party: role,
+          messages: messages.map(m => ({
+            id: m.id, role: m.role, content: m.content,
+            suggestions: m.suggestions, timestamp: Date.now()
+          }))
+        })
+      }).catch(e => console.error('Failed to save chat history:', e));
+    }, 1000);
+  }, []);
+
+  // ====== SYNC ON-CHAIN ROOM ID TO SERVER after TX confirms ======
+  useEffect(() => {
+    if (isConfirmed && onChainRoomId !== null && roomId) {
+      fetch(`/api/rooms/${roomId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'set_on_chain_room_id', onChainRoomId })
+      }).catch(e => console.error('Failed to sync onChainRoomId:', e));
+    }
+  }, [isConfirmed, onChainRoomId, roomId]);
+
   // ====== PARTY B: JOIN EXISTING ROOM ======
   useEffect(() => {
     if (!joinRoomId) return;
@@ -89,11 +124,18 @@ function Workspace() {
         const room = await res.json();
         setRoomId(joinRoomId);
         setDocumentText(room.documentText || '');
-        setOtherParty(room.partyAAddress || '');
+        setOtherParty(roleToUse === 'partyA' ? (room.partyBAddress || '') : (room.partyAAddress || ''));
         setNegotiationHistory(room.messages || []);
         setRoomStatus(room.status);
+        if (room.agreedTerms) setAgreedTerms(room.agreedTerms);
         if (room.partyAAgreed) setPartyAAgreed(room.partyAAgreed);
         if (room.partyBAgreed) setPartyBAgreed(room.partyBAgreed);
+        
+        // Read on-chain room ID from SERVER (not localStorage)
+        if (room.onChainRoomId !== undefined && room.onChainRoomId !== null) {
+          setOnChainRoomId(room.onChainRoomId);
+        }
+        
         setPhase('workspace');
         lastPollTimestamp.current = room.messages?.length > 0
           ? room.messages[room.messages.length - 1].timestamp : 0;
@@ -101,6 +143,18 @@ function Workspace() {
         const savedConstraints = localStorage.getItem(`constraints_${joinRoomId}`);
         if (savedConstraints) {
            setMyConstraints(savedConstraints);
+        }
+
+        // Load private chat history from server
+        const chatRes = await fetch(`/api/rooms/${joinRoomId}?chat_history=${roleToUse}`);
+        if (chatRes.ok) {
+          const chatData = await chatRes.json();
+          if (chatData.chatHistory && chatData.chatHistory.length > 0) {
+            setChatMessages(chatData.chatHistory.map((m: any) => ({
+              id: m.id, role: m.role, content: m.content, suggestions: m.suggestions
+            })));
+            return; // Already have chat history, don't show initial message
+          }
         }
 
         const isA = roleToUse === 'partyA';
@@ -151,6 +205,10 @@ function Workspace() {
         if (data.agreedTerms) setAgreedTerms(data.agreedTerms);
         if (data.partyAAgreed !== undefined) setPartyAAgreed(data.partyAAgreed);
         if (data.partyBAgreed !== undefined) setPartyBAgreed(data.partyBAgreed);
+        // Sync onChainRoomId from server (Party B gets it this way)
+        if (data.onChainRoomId !== undefined && data.onChainRoomId !== null && onChainRoomId === null) {
+          setOnChainRoomId(data.onChainRoomId);
+        }
       } catch (e) {
         console.error("Poll error:", e);
       }
@@ -158,7 +216,7 @@ function Workspace() {
 
     pollIntervalRef.current = setInterval(poll, POLL_INTERVAL);
     return () => { if (pollIntervalRef.current) clearInterval(pollIntervalRef.current); };
-  }, [roomId, phase, isAutoMode, currentRole, myConstraints, documentText, negotiationHistory]);
+  }, [roomId, phase, isAutoMode, currentRole, myConstraints, documentText, negotiationHistory, onChainRoomId]);
 
   // ====== AUTO-RESPOND when other party sends a message ======
   const autoRespond = async (newMessages: NegotiationMessage[]) => {
@@ -352,7 +410,11 @@ function Workspace() {
 
   // ====== HELPERS ======
   function addSystemChat(content: string, suggestions?: Array<{ label: string; action: string }>) {
-    setChatMessages(prev => [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'system' as const, content, suggestions }]);
+    setChatMessages(prev => {
+      const updated = [...prev, { id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'system' as const, content, suggestions }];
+      if (roomId) saveChatToServer(updated, roomId, currentRole);
+      return updated;
+    });
   }
 
   // ====== CHAT with Venice (private) ======
@@ -392,11 +454,15 @@ function Workspace() {
         replyContent = replyContent.replace('<ACTION:START_NEGOTIATION>', '').trim();
       }
 
-      setChatMessages(prev => [...prev, {
-        id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'assistant', content: replyContent,
-        suggestions: data.actions || [],
-        pendingEdit: data.editDocument || undefined
-      }]);
+      setChatMessages(prev => {
+        const updated = [...prev, {
+          id: `${Date.now()}-${Math.random().toString(36).substring(7)}`, role: 'assistant' as const, content: replyContent,
+          suggestions: data.actions || [],
+          pendingEdit: data.editDocument || undefined
+        }];
+        if (roomId) saveChatToServer(updated, roomId, currentRole);
+        return updated;
+      });
 
       if (shouldStartNegotiation) {
         if (!documentText.trim()) {
@@ -462,26 +528,78 @@ function Workspace() {
     finally { setIsSaving(false); }
   };
 
-  // ====== FINALIZE ON-CHAIN ======
+  // ====== FINALIZE ON-CHAIN (call agree() on the smart contract) ======
   const handleFinalize = async () => {
-    if (!otherParty?.startsWith('0x') || otherParty.length !== 42) {
-      addSystemChat('⚠️ Enter a valid other party address.'); return;
+    if (onChainRoomId === null) {
+      addSystemChat('⚠️ No on-chain room found. The room may not have been created on-chain yet. Please wait for the on-chain room to sync...');
+      return;
     }
     try {
       const finalDoc = agreedTerms || documentText;
+      
+      // Upload the final negotiated terms to IPFS
       const res = await fetch('/api/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: finalDoc })
+        body: JSON.stringify({ content: finalDoc, name: `final_agreement_room${onChainRoomId}.txt` })
       });
       const data = await res.json();
-      if (!data.ipfsHash) throw new Error("IPFS failed");
+      if (!data.ipfsHash) throw new Error('IPFS upload failed');
+
+      const otherPartyAddr = currentRole === 'partyA' ? otherParty : (address || 'the other party');
+      const myAddr = address || 'your wallet';
+
+      // Call the smart contract's agree() function
+      // This records the party's approval on-chain, stores the IPFS hash of final terms,
+      // and auto-finalizes when BOTH parties have called agree()
       writeContract({
         address: CONTRACT_ADDRESS, abi: abiData,
-        functionName: 'createRoom',
-        args: [otherParty as `0x${string}`, data.ipfsHash],
+        functionName: 'agree',
+        args: [BigInt(onChainRoomId), data.ipfsHash],
       });
-    } catch (e: any) { alert("Error: " + e.message); }
+
+      // Also mark agreed in the in-memory room
+      if (roomId) {
+        fetch(`/api/rooms/${roomId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'mark_agreed', party: currentRole })
+        }).then(r => r.json()).then(d => {
+          if (d.partyAAgreed) setPartyAAgreed(true);
+          if (d.partyBAgreed) setPartyBAgreed(true);
+        });
+      }
+
+      addSystemChat(
+        `✅ **Your on-chain approval submitted!**\n\n` +
+        `📜 **What this transaction proves:**\n` +
+        `• Your wallet \`${myAddr.substring(0,6)}...${myAddr.substring(38)}\` cryptographically signed agreement to these terms\n` +
+        `• The other party's wallet \`${otherPartyAddr.substring(0,6)}...${otherPartyAddr.substring(38)}\` is recorded as the counterparty on-chain\n` +
+        `• Final terms stored immutably on IPFS: \`${data.ipfsHash}\`\n` +
+        `• On-chain Room ID: \`${onChainRoomId}\` on Ethereum Sepolia\n` +
+        `• Timestamp recorded on Ethereum — cannot be altered or denied\n` +
+        `• When **both** parties call \`agree()\`, the smart contract auto-finalizes with an \`AgreementFinalized\` event\n\n` +
+        `_This is verifiable by anyone on the blockchain — no central authority needed._`
+      );
+    } catch (e: any) { alert('Error: ' + e.message); }
+  };
+
+  // ====== DOWNLOAD AGREEMENT ======
+  const handleDownloadAgreement = () => {
+    const finalDoc = agreedTerms || documentText;
+    if (!finalDoc.trim()) { alert('No agreement content to download.'); return; }
+
+    const timestamp = new Date().toISOString();
+    const header = `CONCORDIA — VERIFIED AGREEMENT\n${'='.repeat(50)}\nGenerated: ${timestamp}\nOn-Chain Room ID: ${onChainRoomId ?? 'N/A'}\nParty A: ${address || 'N/A'}\nParty B: ${otherParty || 'N/A'}\nBlockchain: Ethereum Sepolia\nContract: ${CONTRACT_ADDRESS}\n${'='.repeat(50)}\n\n`;
+    
+    const content = header + finalDoc;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `concordia_agreement_${onChainRoomId ?? 'draft'}_${Date.now()}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   // ====== SUGGESTION HANDLER ======
@@ -499,27 +617,31 @@ function Workspace() {
     if (action === 'share') { handleShare(); return; }
     if (action === 'start_negotiate' || action === 'continue_negotiate') { initiateNegotiation(); return; }
     if (action === 'accept_terms') {
+      // Extract agreed terms from the last negotiation messages
       const last = negotiationHistory.filter(m => m.from !== 'system').pop();
-      if (last) setAgreedTerms(last.message);
+      if (last) {
+        setAgreedTerms(last.message);
+        // Also save agreed terms to server
+        if (roomId) {
+          fetch(`/api/rooms/${roomId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'set_agreed_terms', terms: last.message })
+          });
+        }
+      }
       setIsAutoMode(false);
       
-      if (roomId) {
-        fetch(`/api/rooms/${roomId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'mark_agreed', party: currentRole })
-        }).then(res => res.json()).then(data => {
-          if (data.partyAAgreed) setPartyAAgreed(true);
-          if (data.partyBAgreed) setPartyBAgreed(true);
-          
-          const otherAgreed = currentRole === 'partyA' ? data.partyBAgreed : data.partyAAgreed;
-          if (otherAgreed) {
-            addSystemChat('✅ **Both parties have approved!**\n\nYou can now execute the final transaction to lock this agreement on-chain.', [{ label: '⚡ Execute On-Chain', action: 'finalize' }]);
-          } else {
-            addSystemChat('✅ **You approved the terms.**\n\nWaiting for the other party to approve... Once they do, either of you can finalize this firmly on-chain.');
-          }
-        });
-      }
+      // Immediately prompt the user to sign on-chain
+      addSystemChat(
+        `✅ **Terms approved. Ready to sign on-chain.**\n\n` +
+        `📋 **Final Terms Summary:**\n${last?.message?.substring(0, 500) || 'See negotiation transcript.'}\n\n` +
+        `🔐 Click below to record your approval on the Ethereum blockchain. The smart contract will auto-finalize once **both** parties sign.\n\n` +
+        (onChainRoomId !== null 
+          ? `📡 On-chain Room ID: \`${onChainRoomId}\`` 
+          : `⚠️ Waiting for on-chain room ID to sync...`),
+        [{ label: '⚡ Sign & Record On-Chain', action: 'finalize' }]
+      );
       return;
     }
     const message = MESSAGES[action];
@@ -527,22 +649,94 @@ function Workspace() {
     else handleChat(action);
   };
 
-  // ====== SETUP COMPLETE ======
-  const handleSetupComplete = () => {
+  // ====== SETUP COMPLETE: auto-create room + IPFS upload + on-chain TX ======
+  const [isCreatingRoom, setIsCreatingRoom] = useState(false);
+  const handleSetupComplete = async () => {
     if (!otherParty.trim() || !otherParty.startsWith('0x') || otherParty.length !== 42) {
       alert('Enter a valid Ethereum address.'); return;
     }
-    setPhase('workspace');
-    const hasdoc = documentText.trim().length > 0;
-    setChatMessages([{
-      id: '1', role: 'assistant',
-      content: hasdoc
-        ? `📄 **Agreement loaded.**\n\nI can **edit**, **analyze risks**, or **summarize** it. When ready:\n\n1. Tell me your private constraints\n2. Say **"go negotiate"**\n3. I'll handle everything autonomously\n\n_The other party will never see this channel._`
-        : `👋 **Let's create your agreement.**\n\nTell me what kind of deal, or pick a template below. Once ready, I'll negotiate it for you.`,
-      suggestions: hasdoc
-        ? [{ label: '🔍 Analyze Risks', action: 'analyze_risks' }, { label: '📤 Share & Negotiate', action: 'share' }]
-        : [{ label: '📝 Freelance Contract', action: 'draft_freelance' }, { label: '📝 Rental Agreement', action: 'draft_rental' }]
-    }]);
+    if (!documentText.trim()) {
+      alert('Paste or draft an agreement first.'); return;
+    }
+    setIsCreatingRoom(true);
+    try {
+      // 1. Generate E2EE key and encrypt
+      const roomKey = await generateRoomKey();
+      const encryptedContent = await encryptData(documentText, roomKey);
+      const agentDerivedKey = await deriveKeyFromAddress(AGENT_ADDRESS);
+      const agentEncryptedKey = await encryptData(roomKey, agentDerivedKey);
+      const envelope = JSON.stringify({ v: 1, ciphertext: encryptedContent, agentEncryptedKey });
+
+      // 2. Upload encrypted envelope to IPFS
+      const uploadRes = await fetch('/api/upload', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: envelope, name: `encrypted_contract_${Date.now()}.enc.json` })
+      });
+      const uploadData = await uploadRes.json();
+      if (!uploadData.ipfsHash) throw new Error('IPFS upload failed');
+
+      // 3. Read the nextRoomId from the contract — this will be our on-chain room ID
+      let nextId = 0;
+      try {
+        const nextIdRes = await fetch(process.env.NEXT_PUBLIC_RPC_URL || `https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0', id: 1, method: 'eth_call',
+            params: [{ to: CONTRACT_ADDRESS, data: '0x07a52cab' /* nextRoomId() selector */ }, 'latest']
+          })
+        });
+        const nextIdData = await nextIdRes.json();
+        if (nextIdData.result) {
+          nextId = parseInt(nextIdData.result, 16);
+          if (isNaN(nextId)) nextId = 0;
+        }
+      } catch (e) {
+        console.warn('Failed to read nextRoomId from contract, defaulting to 0:', e);
+      }
+      setOnChainRoomId(nextId);
+
+      // 4. Create on-chain room (will get roomId = nextId)
+      writeContract({
+        address: CONTRACT_ADDRESS, abi: abiData,
+        functionName: 'createRoom',
+        args: [otherParty as `0x${string}`, uploadData.ipfsHash],
+      });
+
+      // 4. Also create the in-memory room for real-time chat
+      const roomRes = await fetch('/api/rooms', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ documentText, partyAAddress: address || otherParty, partyBAddress: otherParty, partyAConstraints: '' })
+      });
+      const roomData = await roomRes.json();
+      if (roomData.roomId) {
+        setRoomId(roomData.roomId);
+        localStorage.setItem(`role_${roomData.roomId}`, 'partyA');
+        // onChainRoomId will be synced to server via useEffect when TX confirms
+        window.history.replaceState(null, '', `?room=${roomData.roomId}`);
+
+        // Save E2EE key
+        const hashRef = uploadData.ipfsHash.substring(0, 12);
+        saveRoomKey(hashRef, roomKey);
+
+        // Generate share link with #key=...
+        const url = `${window.location.origin}/workspace?room=${roomData.roomId}#key=${roomKey}`;
+        setShareUrl(url);
+        navigator.clipboard.writeText(url);
+      }
+
+      // 5. Move to workspace
+      setPhase('workspace');
+      setChatMessages([{
+        id: '1', role: 'assistant',
+        content: `🔒 **Agreement encrypted & uploaded to IPFS.**\n\n📡 On-chain transaction submitted — the Autonomous Agent will analyze it shortly.\n\n📤 **Share link copied!** Send it to Party B so they can join.\n\n_While waiting, tell me your private negotiation constraints (rates, limits, secrets)._`,
+        suggestions: [{ label: '🔒 Set My Constraints', action: 'set_constraints' }]
+      }]);
+    } catch (e: any) {
+      alert('Failed to create room: ' + e.message);
+    } finally {
+      setIsCreatingRoom(false);
+    }
   };
 
   // ==================== RENDER ====================
@@ -572,8 +766,12 @@ function Workspace() {
               <p className="text-[10px] text-muted-foreground/50">{isDragActive ? 'Drop' : 'Drop PDF/TXT'}</p>
             </div>
           </div>
-          <button onClick={handleSetupComplete} className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center group">
-            Continue <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          <button onClick={handleSetupComplete} disabled={isCreatingRoom || isPending || isConfirming}
+            className="w-full h-12 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center group disabled:opacity-60">
+            {isCreatingRoom ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Encrypting & Uploading...</> :
+             isPending ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Confirm in Wallet...</> :
+             isConfirming ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Waiting for Block...</> :
+             <>Create Encrypted Room & Share <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>}
           </button>
         </motion.div>
       </div>
@@ -615,29 +813,67 @@ function Workspace() {
           <button onClick={handleShare} disabled={isSaving || !documentText.trim()} className="flex items-center h-6 px-2 text-[9px] font-medium rounded border border-border hover:bg-accent disabled:opacity-40">
             {isSaving ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Share2 className="w-2.5 h-2.5 mr-0.5" />} Share
           </button>
-          {(!partyAAgreed || !partyBAgreed) ? (
-            <button 
-              onClick={() => handleSuggestion('accept_terms')} 
-              disabled={!roomId || (currentRole === 'partyA' ? partyAAgreed : partyBAgreed)} 
-              className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-40">
-              <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />
-              {(currentRole === 'partyA' ? partyAAgreed : partyBAgreed) ? "Approved" : "Approve Terms"}
-            </button>
-          ) : (
-            <button onClick={handleFinalize} disabled={isPending || isConfirming || !documentText.trim() || isConfirmed} className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-40">
-              {isPending || isConfirming ? <Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> : <Zap className="w-2.5 h-2.5 mr-0.5" />}
-              {isConfirmed ? "Executed On-Chain!" : "Execute Final TX"}
+          {/* Only show Approve/Finalize during or after negotiation */}
+          {(roomStatus === 'negotiating' || roomStatus === 'agreed' || negotiationHistory.length > 0) && (() => {
+            const myAgreed = currentRole === 'partyA' ? partyAAgreed : partyBAgreed;
+            const otherAgreed = currentRole === 'partyA' ? partyBAgreed : partyAAgreed;
+            return (
+              <>
+                {/* Step 1: Approve Terms (in-memory) */}
+                {!myAgreed && (
+                  <button 
+                    onClick={() => handleSuggestion('accept_terms')} 
+                    disabled={!roomId || negotiationHistory.length === 0} 
+                    className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-40">
+                    <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />
+                    Approve Terms
+                  </button>
+                )}
+                {/* Step 2: Sign On-Chain (each party independently) */}
+                {myAgreed && !isConfirmed && (
+                  <button onClick={handleFinalize} disabled={isPending || isConfirming || onChainRoomId === null} className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-40">
+                    {isPending || isConfirming ? <Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> : <Zap className="w-2.5 h-2.5 mr-0.5" />}
+                    Sign & Record On-Chain
+                  </button>
+                )}
+                {isConfirmed && (
+                  <span className="flex items-center h-6 px-2 text-[9px] font-bold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" /> Signed ✓
+                  </span>
+                )}
+                {/* Status indicators */}
+                {myAgreed && <span className="text-[7px] text-emerald-400/60">You: ✓</span>}
+                {otherAgreed && <span className="text-[7px] text-emerald-400/60">Other: ✓</span>}
+                {onChainRoomId !== null && <span className="text-[7px] text-muted-foreground/40 font-mono">Chain #{onChainRoomId}</span>}
+              </>
+            );
+          })()}
+          {/* Download Agreement */}
+          {(agreedTerms || documentText) && (
+            <button onClick={handleDownloadAgreement} className="flex items-center h-6 px-2 text-[9px] font-medium rounded border border-border hover:bg-accent">
+              <Download className="w-2.5 h-2.5 mr-0.5" /> Download
             </button>
           )}
         </div>
       </div>
 
       {/* Banners */}
-      {isConfirmed && <div className="bg-emerald-500/10 border-b border-emerald-500/20 px-4 py-1 text-[10px] text-emerald-400 text-center font-medium"><CheckCircle2 className="w-3 h-3 inline mr-1" />On-chain!</div>}
+      {isConfirmed && (
+        <div className="bg-emerald-500/10 border-b border-emerald-500/20 px-4 py-2 text-[10px] text-emerald-400 text-center font-medium">
+          <CheckCircle2 className="w-3 h-3 inline mr-1" />
+          On-chain TX confirmed!
+          {hash && (
+            <a href={`https://sepolia.etherscan.io/tx/${hash}`} target="_blank" rel="noopener noreferrer" className="ml-2 underline inline-flex items-center">
+              View Proof on Etherscan <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
+            </a>
+          )}
+        </div>
+      )}
       {shareUrl && (
-        <div className="bg-blue-500/10 border-b border-blue-500/20 px-4 py-1 text-[10px] text-blue-400 text-center">
-          <Copy className="w-3 h-3 inline mr-1" />Link copied!
-          <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="ml-1 underline">Copy</button>
+        <div className="bg-blue-500/10 border-b border-blue-500/20 px-4 py-1.5 text-[10px] text-blue-400 text-center">
+          <Lock className="w-3 h-3 inline mr-1" />
+          E2E Encrypted link copied! Only someone with this link can decrypt the agreement.
+          <button onClick={() => navigator.clipboard.writeText(shareUrl)} className="ml-1 underline">Copy Again</button>
         </div>
       )}
 

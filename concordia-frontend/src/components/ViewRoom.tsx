@@ -1,9 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useReadContract, useWriteContract, useAccount } from 'wagmi';
-import { Loader2, FileText, CheckCircle2, ShieldAlert, ExternalLink, Clock, AlertTriangle } from 'lucide-react';
+import { Loader2, FileText, CheckCircle2, ShieldAlert, ExternalLink, Clock, AlertTriangle, Lock, Unlock } from 'lucide-react';
 import abiData from '../contracts/AgreementRoomABI.json';
 import { EnsAddress } from '../hooks/useEns';
+import { decryptData, getRoomKey, extractKeyFromHash, saveRoomKey } from '../lib/crypto';
 
 const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_AGREEMENT_ROOM_ADDRESS || "0xF4665e83cAF0993b636D055c7E65f614cafd2AAC") as `0x${string}`;
 
@@ -18,7 +19,11 @@ const STATUS_CONFIG = [
 
 export default function ViewRoom({ roomId }: { roomId: number }) {
   const [analysis, setAnalysis] = useState('');
+  const [contractText, setContractText] = useState('');
   const [isLoadingAnalysis, setIsLoadingAnalysis] = useState(false);
+  const [isLoadingContract, setIsLoadingContract] = useState(false);
+  const [hasKey, setHasKey] = useState(false);
+  const [decryptionFailed, setDecryptionFailed] = useState(false);
   const { address } = useAccount();
 
   const { data: room, isLoading: isLoadingRoom } = useReadContract({
@@ -30,26 +35,86 @@ export default function ViewRoom({ roomId }: { roomId: number }) {
 
   const { writeContract, isPending } = useWriteContract();
 
+  // Check for room key on mount — from URL hash or localStorage
   useEffect(() => {
-    if (room && room[4] && !analysis) { // analysisHash exists
+    if (!room) return;
+    const ipfsHash = room[3] as string;
+    if (!ipfsHash) return;
+
+    const hashRef = ipfsHash.substring(0, 12);
+    
+    // Try URL hash first
+    const urlKey = extractKeyFromHash();
+    if (urlKey) {
+      saveRoomKey(hashRef, urlKey);
+      setHasKey(true);
+      // Clean the hash from the URL for security
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      return;
+    }
+
+    // Try localStorage
+    const storedKey = getRoomKey(hashRef);
+    if (storedKey) {
+      setHasKey(true);
+    }
+  }, [room]);
+
+  // Fetch and decrypt contract text
+  useEffect(() => {
+    if (room && room[3] && hasKey && !contractText) {
+      fetchAndDecrypt(room[3], 'contract');
+    }
+  }, [room, hasKey, contractText]);
+
+  // Fetch and decrypt analysis
+  useEffect(() => {
+    if (room && room[4] && hasKey && !analysis) {
       const statusNum = Number(room[8]);
-      if (statusNum >= 2) { // Negotiating or beyond
-        fetchAnalysis(room[4]);
+      if (statusNum >= 2) {
+        fetchAndDecrypt(room[4], 'analysis');
       }
     }
-  }, [room, analysis]);
+  }, [room, hasKey, analysis]);
 
-  const fetchAnalysis = async (cid: string) => {
+  const fetchAndDecrypt = async (cid: string, type: 'contract' | 'analysis') => {
     if (!cid) return;
-    setIsLoadingAnalysis(true);
+    
+    if (type === 'contract') setIsLoadingContract(true);
+    else setIsLoadingAnalysis(true);
+
     try {
       const res = await fetch(`https://gateway.pinata.cloud/ipfs/${cid}`);
-      const text = await res.text();
-      setAnalysis(text);
+      const encryptedText = await res.text();
+
+      // Get the room key
+      const ipfsHash = room[3] as string;
+      const hashRef = ipfsHash.substring(0, 12);
+      const key = getRoomKey(hashRef);
+
+      if (!key) {
+        if (type === 'contract') setContractText('[Encrypted - requires room key]');
+        else setAnalysis('[Encrypted - requires room key]');
+        return;
+      }
+
+      try {
+        const decrypted = await decryptData(encryptedText, key);
+        if (type === 'contract') setContractText(decrypted);
+        else setAnalysis(decrypted);
+      } catch {
+        // If decryption fails, the content might be unencrypted (legacy rooms)
+        if (type === 'contract') setContractText(encryptedText);
+        else setAnalysis(encryptedText);
+      }
     } catch {
-      setAnalysis("Failed to load analysis from IPFS.");
+      if (type === 'contract') setContractText('Failed to load from IPFS.');
+      else setAnalysis('Failed to load analysis from IPFS.');
     } finally {
-      setIsLoadingAnalysis(false);
+      if (type === 'contract') setIsLoadingContract(false);
+      else setIsLoadingAnalysis(false);
     }
   };
 
@@ -77,9 +142,20 @@ export default function ViewRoom({ roomId }: { roomId: number }) {
         <h3 className="text-xl font-bold flex items-center">
           <FileText className="mr-3 text-primary" /> Agreement Room #{roomId}
         </h3>
-        <span className={`px-4 py-1.5 rounded-full text-xs font-bold border ${statusInfo.bg} ${statusInfo.color}`}>
-          {statusInfo.label}
-        </span>
+        <div className="flex items-center gap-2">
+          {hasKey ? (
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold border bg-emerald-500/10 border-emerald-500/20 text-emerald-400 flex items-center">
+              <Unlock className="w-3 h-3 mr-1" /> Decrypted
+            </span>
+          ) : (
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold border bg-amber-500/10 border-amber-500/20 text-amber-400 flex items-center">
+              <Lock className="w-3 h-3 mr-1" /> Encrypted
+            </span>
+          )}
+          <span className={`px-4 py-1.5 rounded-full text-xs font-bold border ${statusInfo.bg} ${statusInfo.color}`}>
+            {statusInfo.label}
+          </span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6 p-4 bg-background/40 rounded-xl">
@@ -101,16 +177,29 @@ export default function ViewRoom({ roomId }: { roomId: number }) {
         {finalizedAt > 0 && <span className="flex items-center"><CheckCircle2 className="w-3 h-3 mr-1 text-emerald-500" /> Finalized: {new Date(finalizedAt).toLocaleString()}</span>}
       </div>
 
+      {/* E2EE Contract Preview */}
+      {contractText && (
+        <div className="mt-4 p-4 rounded-xl border border-border/30 bg-muted/20">
+          <h4 className="font-bold flex items-center text-sm mb-3 text-foreground/80">
+            <FileText className="mr-2 w-4 h-4 text-primary" /> Contract Content
+            {hasKey && <span className="ml-2 text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">E2E Decrypted</span>}
+          </h4>
+          <div className="prose prose-invert max-w-none text-sm p-4 bg-background/80 rounded-lg max-h-48 overflow-y-auto whitespace-pre-wrap font-mono border border-border/50 leading-relaxed">
+            {contractText}
+          </div>
+        </div>
+      )}
+
       {/* IPFS Links */}
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-4 mt-4">
         {room[3] && (
           <a href={`https://gateway.pinata.cloud/ipfs/${room[3]}`} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline flex items-center bg-primary/5 px-2 py-1 rounded-md border border-primary/20">
-            <FileText className="w-3 h-3 mr-1" /> Contract IPFS <ExternalLink className="w-3 h-3 ml-1" />
+            <Lock className="w-3 h-3 mr-1" /> Encrypted Contract (IPFS) <ExternalLink className="w-3 h-3 ml-1" />
           </a>
         )}
         {room[4] && (
           <a href={`https://gateway.pinata.cloud/ipfs/${room[4]}`} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:underline flex items-center bg-emerald-500/5 px-2 py-1 rounded-md border border-emerald-500/20">
-            <ShieldAlert className="w-3 h-3 mr-1" /> Analysis IPFS <ExternalLink className="w-3 h-3 ml-1" />
+            <ShieldAlert className="w-3 h-3 mr-1" /> Analysis (IPFS) <ExternalLink className="w-3 h-3 ml-1" />
           </a>
         )}
       </div>
@@ -120,9 +209,10 @@ export default function ViewRoom({ roomId }: { roomId: number }) {
         <div className="mt-4 p-5 rounded-xl border border-primary/30 bg-primary/5">
           <h4 className="font-bold flex items-center text-primary mb-4">
             <ShieldAlert className="mr-2 w-5 h-5" /> Venice AI Private Risk Analysis
+            {hasKey && <span className="ml-2 text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">E2E Decrypted</span>}
           </h4>
           {isLoadingAnalysis ? (
-            <div className="flex items-center text-muted-foreground p-4"><Loader2 className="mr-3 animate-spin w-5 h-5"/> Fetching from IPFS...</div>
+            <div className="flex items-center text-muted-foreground p-4"><Loader2 className="mr-3 animate-spin w-5 h-5"/> Fetching & Decrypting from IPFS...</div>
           ) : (
             <div className="prose prose-invert max-w-none text-sm p-5 bg-background/80 rounded-lg max-h-96 overflow-y-auto whitespace-pre-wrap font-mono border border-border/50 leading-relaxed">
               {analysis || "No analysis content found."}
@@ -135,7 +225,7 @@ export default function ViewRoom({ roomId }: { roomId: number }) {
       {status <= 1 && (
         <div className="p-5 rounded-xl border border-yellow-500/20 bg-yellow-500/5 text-yellow-500/90 mt-4 flex items-center font-medium">
           <Loader2 className="animate-spin w-6 h-6 mr-4" />
-          The Concordia Autonomous Agent is analyzing this contract via Venice AI...
+          The Concordia Autonomous Agent is decrypting & analyzing this contract via Venice AI...
         </div>
       )}
 

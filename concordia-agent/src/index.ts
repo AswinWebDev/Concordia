@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 import { analyzeContractPrivate } from "./venice";
 import { fetchFromIPFS, uploadToIPFS } from "./ipfs";
+import { decryptData, encryptData, deriveKeyFromAddress } from "./crypto";
 import fs from "fs";
 
 dotenv.config();
@@ -192,6 +193,44 @@ async function handleRoomCreated(roomId: any, partyA: string, partyB: string, co
             durationMs: Date.now() - fetchStart
         });
 
+        // 2b. E2EE DECRYPTION: Parse JSON envelope and decrypt
+        let contractText = rawContractText;
+        let roomKey: string | null = null;
+
+        try {
+            // Try to parse as JSON envelope (v1 E2EE format)
+            const rawString = typeof rawContractText === 'object' ? JSON.stringify(rawContractText) : rawContractText;
+            const envelope = JSON.parse(rawString);
+            if (envelope.v === 1 && envelope.ciphertext && envelope.agentEncryptedKey) {
+                logAgent({
+                    type: "decision",
+                    action: "Detected E2EE envelope (v1). Decrypting with agent key...",
+                    metadata: { version: envelope.v }
+                });
+
+                // Derive the same key the frontend used to encrypt the room key
+                const agentDerivedKey = deriveKeyFromAddress(wallet.address);
+                roomKey = decryptData(envelope.agentEncryptedKey, agentDerivedKey);
+
+                // Decrypt the actual contract text with the room key
+                contractText = decryptData(envelope.ciphertext, roomKey);
+
+                logAgent({
+                    type: "output",
+                    action: "Successfully decrypted E2EE contract",
+                    metadata: { decryptedLength: contractText.length }
+                });
+            }
+        } catch (parseError: any) {
+            // Not a JSON envelope — treat as legacy plaintext
+            logAgent({
+                type: "system",
+                action: "IPFS content is not an E2EE envelope, treating as plaintext",
+                metadata: { reason: parseError.message }
+            });
+            contractText = typeof rawContractText === 'object' ? JSON.stringify(rawContractText) : rawContractText;
+        }
+
         // 3. EXECUTE: Analyze privately via Venice AI
         logAgent({
             type: "decision",
@@ -201,7 +240,7 @@ async function handleRoomCreated(roomId: any, partyA: string, partyB: string, co
 
         const veniceStart = Date.now();
         const analysisMarkdown = await withRetry(
-            () => analyzeContractPrivate(rawContractText),
+            () => analyzeContractPrivate(contractText),
             "Venice AI Analysis"
         );
         computeBudget.veniceApiCalls++;
@@ -209,15 +248,20 @@ async function handleRoomCreated(roomId: any, partyA: string, partyB: string, co
             type: "tool_call",
             action: "Venice AI analysis completed",
             toolName: "venice_ai_private_inference",
-            input: { contractLength: rawContractText?.length, model: "llama-3.3-70b" },
+            input: { contractLength: contractText?.length, model: "llama-3.3-70b" },
             output: { analysisLength: analysisMarkdown?.length },
             durationMs: Date.now() - veniceStart
         });
 
-        // 4. STORE: Upload analysis to IPFS
+        // 4. STORE: Encrypt the analysis and upload to IPFS
+        let analysisToUpload = analysisMarkdown;
+        if (roomKey) {
+            logAgent({ type: "decision", action: "Encrypting analysis with room key before IPFS upload" });
+            analysisToUpload = encryptData(analysisMarkdown, roomKey);
+        }
         const uploadStart = Date.now();
         const analysisCid = await withRetry(
-            () => uploadToIPFS(analysisMarkdown, `analysis_room_${id}.md`),
+            () => uploadToIPFS(analysisToUpload, `analysis_room_${id}.enc`),
             "IPFS Upload"
         );
         computeBudget.ipfsUploads++;

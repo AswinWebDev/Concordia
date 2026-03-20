@@ -16,6 +16,14 @@ export type RoomMessage = {
   round?: number;
 };
 
+export type ChatHistoryMessage = {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  suggestions?: Array<{ label: string; action: string }>;
+  timestamp: number;
+};
+
 export type Room = {
   id: string;
   documentText: string;
@@ -32,6 +40,9 @@ export type Room = {
   roundNumber: number;
   partyAAgreed?: boolean;
   partyBAgreed?: boolean;
+  onChainRoomId?: number;        // Synced from Party A after on-chain TX
+  partyAChatHistory: ChatHistoryMessage[];  // Private chat for Party A
+  partyBChatHistory: ChatHistoryMessage[];  // Private chat for Party B
 };
 
 // Global store — persists as long as the Next.js dev server runs
@@ -63,6 +74,8 @@ export function createRoom(data: {
     agreedTerms: '',
     createdAt: Date.now(),
     roundNumber: 0,
+    partyAChatHistory: [],
+    partyBChatHistory: [],
   };
   roomStore.set(id, room);
   return room;
