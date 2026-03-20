@@ -48,7 +48,7 @@ contract AgreementRoom {
     event AgentRegistered(address indexed agent);
     event AnalysisSubmitted(uint256 indexed roomId, string analysisHash);
     event NegotiationUpdate(uint256 indexed roomId, string updateHash);
-    event PartyAgreed(uint256 indexed roomId, address party);
+    event PartyAgreed(uint256 indexed roomId, address indexed party, address indexed counterparty, string finalTermsHash);
     event AgreementFinalized(uint256 indexed roomId, string finalTermsHash, uint256 timestamp);
     event DisputeRaised(uint256 indexed roomId, address raisedBy);
 
@@ -163,7 +163,7 @@ contract AgreementRoom {
             room.partyBAgreed = true;
         }
 
-        emit PartyAgreed(_roomId, msg.sender);
+        emit PartyAgreed(_roomId, msg.sender, msg.sender == room.partyA ? room.partyB : room.partyA, _finalTermsHash);
 
         // If first party agrees, move to Agreed status
         if (!room.partyAAgreed || !room.partyBAgreed) {

@@ -73,6 +73,17 @@ function Workspace() {
   const { data: hash, isPending, writeContract } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
+  const { data: onChainRoomData } = useReadContract({
+    address: CONTRACT_ADDRESS,
+    abi: abiData,
+    functionName: 'getRoom',
+    args: onChainRoomId !== null ? [BigInt(onChainRoomId)] : undefined,
+    query: {
+      enabled: onChainRoomId !== null,
+      refetchInterval: 5000, // Poll on-chain state every 5s
+    }
+  });
+
   const chatEndRef = useRef<HTMLDivElement>(null);
   const negEndRef = useRef<HTMLDivElement>(null);
 
@@ -859,7 +870,7 @@ function Workspace() {
 
       {/* Banners */}
       {isConfirmed && (
-        <div className="bg-emerald-500/10 border-b border-emerald-500/20 px-4 py-2 text-[10px] text-emerald-400 text-center font-medium">
+        <div className="bg-emerald-500/10 border-b border-emerald-500/20 px-4 py-2 text-[10px] text-emerald-400 text-center font-medium flex-shrink-0">
           <CheckCircle2 className="w-3 h-3 inline mr-1" />
           On-chain TX confirmed!
           {hash && (
@@ -869,6 +880,70 @@ function Workspace() {
           )}
         </div>
       )}
+
+      {/* ON-CHAIN VERIFICATION PANEL (Data read directly from smart contract) */}
+      {(() => {
+        const data = onChainRoomData as any[];
+        if (!data || !Array.isArray(data)) return null;
+        return (
+          <div className="bg-emerald-500/5 border-b border-emerald-500/20 px-4 py-3 shrink-0 flex items-center justify-between text-[10px]">
+            <div className="flex items-center">
+              <Shield className="w-4 h-4 text-emerald-400 mr-2" />
+              <span className="font-bold text-emerald-400 mr-4">On-Chain Verification (Room #{onChainRoomId})</span>
+              
+              <div className="flex items-center space-x-6">
+                {/* Party A */}
+                <div className="flex items-center">
+                  <span className="text-muted-foreground mr-2">Party A:</span>
+                  <span className="font-mono text-[9px] bg-background/50 px-1.5 py-0.5 rounded border border-border mr-2">
+                    {String(data[1]).substring(0, 6)}...{String(data[1]).substring(38)}
+                  </span>
+                  {data[9] ? (
+                    <span className="text-emerald-400 flex items-center"><CheckCircle2 className="w-2.5 h-2.5 mr-0.5" /> Signed</span>
+                  ) : (
+                    <span className="text-muted-foreground/50 flex items-center"><Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> Pending</span>
+                  )}
+                </div>
+
+                {/* Party B */}
+                <div className="flex items-center">
+                  <span className="text-muted-foreground mr-2">Party B:</span>
+                  <span className="font-mono text-[9px] bg-background/50 px-1.5 py-0.5 rounded border border-border mr-2">
+                    {String(data[2]).substring(0, 6)}...{String(data[2]).substring(38)}
+                  </span>
+                  {data[10] ? (
+                    <span className="text-emerald-400 flex items-center"><CheckCircle2 className="w-2.5 h-2.5 mr-0.5" /> Signed</span>
+                  ) : (
+                    <span className="text-muted-foreground/50 flex items-center"><Loader2 className="w-2.5 h-2.5 mr-0.5 animate-spin" /> Pending</span>
+                  )}
+                </div>
+
+                {/* Final Terms IPFS */}
+                {data[5] && String(data[5]).length > 0 && (
+                  <div className="flex items-center border-l border-emerald-500/20 pl-6">
+                    <span className="text-muted-foreground mr-2">Terms:</span>
+                    <a 
+                      href={`https://gateway.pinata.cloud/ipfs/${data[5]}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center text-emerald-400 hover:text-emerald-300 transition-colors font-mono"
+                    >
+                      <ExternalLink className="w-2.5 h-2.5 mr-1" />
+                      IPFS:{String(data[5]).substring(0, 8)}...
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {data[9] && data[10] ? (
+               <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 px-2 py-0.5 rounded font-bold tracking-widest uppercase">Contract Finalized ✓</span>
+            ) : (
+               <span className="bg-muted text-muted-foreground border border-border px-2 py-0.5 rounded font-bold tracking-widest uppercase">Awaiting Signatures</span>
+            )}
+          </div>
+        );
+      })()}
       {shareUrl && (
         <div className="bg-blue-500/10 border-b border-blue-500/20 px-4 py-1.5 text-[10px] text-blue-400 text-center">
           <Lock className="w-3 h-3 inline mr-1" />
