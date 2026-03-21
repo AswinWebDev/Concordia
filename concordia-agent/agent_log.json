@@ -5153,5 +5153,4089 @@
         "startTime": 1774025149643
       }
     }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:50.398Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:55.314Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:57.642Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 7239
+  },
+  {
+    "timestamp": "2026-03-20T19:29:57.644Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:57.658Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:57.661Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:58.561Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3244
+  },
+  {
+    "timestamp": "2026-03-20T19:29:58.562Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:58.564Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:29:58.565Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:00.328Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.721Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 928
+    },
+    "durationMs": 7056
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.726Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.940Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4610
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.944Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.949Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:04.953Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:05.863Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:06.677Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreigwralu5ukhds7qbk2t3ubjgdg3k3gsthz7656zaexundc4t5ov2u"
+    },
+    "durationMs": 1948
+  },
+  {
+    "timestamp": "2026-03-20T19:30:06.679Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreigwralu5ukhds7qbk2t3ubjgdg3k3gsthz7656zaexundc4t5ov2u",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:07.090Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 955
+    },
+    "durationMs": 8524
+  },
+  {
+    "timestamp": "2026-03-20T19:30:07.095Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:07.962Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreiaklnym3dadgxe6thjbkzpnh3q3f7uwuz2gwgfmvyiks6xqfemrry"
+    },
+    "durationMs": 862
+  },
+  {
+    "timestamp": "2026-03-20T19:30:07.967Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreiaklnym3dadgxe6thjbkzpnh3q3f7uwuz2gwgfmvyiks6xqfemrry",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:09.344Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3477
+  },
+  {
+    "timestamp": "2026-03-20T19:30:09.347Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:09.352Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:09.356Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:10.363Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:11.368Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 947
+    },
+    "durationMs": 6413
+  },
+  {
+    "timestamp": "2026-03-20T19:30:11.369Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:12.310Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreiet7tnub7sposq2h36u2hd74zvsleyvuphfgi4l2546gp44qpjyva"
+    },
+    "durationMs": 940
+  },
+  {
+    "timestamp": "2026-03-20T19:30:12.314Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreiet7tnub7sposq2h36u2hd74zvsleyvuphfgi4l2546gp44qpjyva",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:13.538Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3174
+  },
+  {
+    "timestamp": "2026-03-20T19:30:13.539Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:13.540Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:13.541Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:15.381Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:17.842Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1006
+    },
+    "durationMs": 8482
+  },
+  {
+    "timestamp": "2026-03-20T19:30:17.843Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:19.870Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreid2abh5e6hh33uscpwj4letp6ukah2hetaze4xtrjij53g6z4mmge"
+    },
+    "durationMs": 2026
+  },
+  {
+    "timestamp": "2026-03-20T19:30:19.874Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreid2abh5e6hh33uscpwj4letp6ukah2hetaze4xtrjij53g6z4mmge",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:20.315Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:20.485Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5104
+  },
+  {
+    "timestamp": "2026-03-20T19:30:20.487Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:20.488Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:20.489Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:22.551Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 861
+    },
+    "durationMs": 9010
+  },
+  {
+    "timestamp": "2026-03-20T19:30:22.557Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:23.371Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreih4xsntob3qx3gy7a3wko7556tgjksptkn2q63gok2r37hx6lb3b4"
+    },
+    "durationMs": 809
+  },
+  {
+    "timestamp": "2026-03-20T19:30:23.375Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreih4xsntob3qx3gy7a3wko7556tgjksptkn2q63gok2r37hx6lb3b4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:25.366Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:26.750Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 6434
+  },
+  {
+    "timestamp": "2026-03-20T19:30:26.754Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:26.759Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:26.764Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:30.224Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1034
+    },
+    "durationMs": 9734
+  },
+  {
+    "timestamp": "2026-03-20T19:30:30.228Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:30.333Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:31.154Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5788
+  },
+  {
+    "timestamp": "2026-03-20T19:30:31.155Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:31.156Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:31.158Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:32.346Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreief6mljumolt64ml2zza6fvg4fvg6xgnx5z3ydd63upnqyrjxkwxa"
+    },
+    "durationMs": 2115
+  },
+  {
+    "timestamp": "2026-03-20T19:30:32.351Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreief6mljumolt64ml2zza6fvg4fvg6xgnx5z3ydd63upnqyrjxkwxa",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:34.942Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4608
+  },
+  {
+    "timestamp": "2026-03-20T19:30:34.946Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:34.950Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:34.952Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:36.784Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:39.856Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3070
+  },
+  {
+    "timestamp": "2026-03-20T19:30:39.862Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:39.865Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:39.868Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.077Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1494
+    },
+    "durationMs": 13308
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.083Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.470Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.882Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Analysis submitted and confirmed on-chain",
+    "toolName": "ethereum_transaction",
+    "input": {
+      "function": "submitAnalysis",
+      "roomId": "1"
+    },
+    "output": {
+      "txHash": "0x9934add07ef76ffc34877fd31bb9c5c8c76c494758c518b5718906c9fc99ff9a",
+      "gasUsed": "118158",
+      "blockNumber": 10485851
+    },
+    "durationMs": 34202
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.886Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Compute Budget Update",
+    "metadata": {
+      "totalDurationMs": 50488,
+      "veniceApiCalls": 12,
+      "ipfsFetches": 15,
+      "ipfsUploads": 11,
+      "txSubmitted": 2,
+      "totalGasUsed": "236304",
+      "startTime": 1774025149643,
+      "uptimeMs": 9891243
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.892Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xcc4cfe5d17dccab2eb29635ef57abd3295d01bff5330894cec78b6570571046f\", \"blockNumber\": 10485851, \"contractAddress\": null, \"cumulativeGasUsed\": \"25227442\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000011\", \"gasUsed\": \"28590\", \"hash\": \"0xe85ee56cc517a666e386b273b5471d0b25b388a223596fd7041c0f57ff9a3777\", \"index\": 215, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 45577,
+      "computeBudget": {
+        "veniceApiCalls": 12,
+        "ipfsFetches": 15,
+        "ipfsUploads": 11,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.897Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xcc4cfe5d17dccab2eb29635ef57abd3295d01bff5330894cec78b6570571046f\", \"blockNumber\": 10485851, \"contractAddress\": null, \"cumulativeGasUsed\": \"26170972\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000011\", \"gasUsed\": \"28590\", \"hash\": \"0x9bdf120a96e14737219db1e068974d60c43be66c368b0eb8c22d845d4e5076f5\", \"index\": 223, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 40569,
+      "computeBudget": {
+        "veniceApiCalls": 12,
+        "ipfsFetches": 15,
+        "ipfsUploads": 11,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.899Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xcc4cfe5d17dccab2eb29635ef57abd3295d01bff5330894cec78b6570571046f\", \"blockNumber\": 10485851, \"contractAddress\": null, \"cumulativeGasUsed\": \"29693991\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000011\", \"gasUsed\": \"28590\", \"hash\": \"0x3208ea9a81a4206ff24681ffb69da5891611266b34549add87ccc569df2eee69\", \"index\": 238, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 35036,
+      "computeBudget": {
+        "veniceApiCalls": 12,
+        "ipfsFetches": 15,
+        "ipfsUploads": 11,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:40.901Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0xcc4cfe5d17dccab2eb29635ef57abd3295d01bff5330894cec78b6570571046f\", \"blockNumber\": 10485851, \"contractAddress\": null, \"cumulativeGasUsed\": \"29826623\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000011\", \"gasUsed\": \"28590\", \"hash\": \"0x8c6387c46cde0a7db3ee5a661918983ac2ad919e2c80b49d961017eeb2c50443\", \"index\": 240, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 30538,
+      "computeBudget": {
+        "veniceApiCalls": 12,
+        "ipfsFetches": 15,
+        "ipfsUploads": 11,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:42.295Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreici7txws65jwmhggbz7rgwwac5fmgonr2ndeei77dehaqulw7nn7a"
+    },
+    "durationMs": 2208
+  },
+  {
+    "timestamp": "2026-03-20T19:30:42.296Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreici7txws65jwmhggbz7rgwwac5fmgonr2ndeei77dehaqulw7nn7a",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:42.927Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696369377478777336356a776d686767627a3772677777616335666d676f6e72326e6465656937376465686171756c77376e6e37610000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 22612,
+      "computeBudget": {
+        "veniceApiCalls": 12,
+        "ipfsFetches": 15,
+        "ipfsUploads": 12,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.305Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 902
+    },
+    "durationMs": 8350
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.308Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.748Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1011
+    },
+    "durationMs": 12588
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.749Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.932Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3461
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.934Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.937Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:43.939Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:44.260Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreidxw36tsjzbvikwtaowj5b6mnmr24zxhfqc5zrzpyoh6rh55jm5wm"
+    },
+    "durationMs": 950
+  },
+  {
+    "timestamp": "2026-03-20T19:30:44.265Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreidxw36tsjzbvikwtaowj5b6mnmr24zxhfqc5zrzpyoh6rh55jm5wm",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:44.976Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569647877333674736a7a6276696b7774616f776a3562366d6e6d7232347a7868667163357a727a70796f6836726835356a6d35776d0000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 14643,
+      "computeBudget": {
+        "veniceApiCalls": 14,
+        "ipfsFetches": 16,
+        "ipfsUploads": 13,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:45.691Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreievddhhui7tnqhsflam2y3fnbt744hfk772sgpcqitfdy7shna32a"
+    },
+    "durationMs": 1940
+  },
+  {
+    "timestamp": "2026-03-20T19:30:45.692Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreievddhhui7tnqhsflam2y3fnbt744hfk772sgpcqitfdy7shna32a",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:46.405Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569657664646868756937746e716873666c616d327933666e627437343468666b373732736770637169746664793773686e613332610000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 21040,
+      "computeBudget": {
+        "veniceApiCalls": 14,
+        "ipfsFetches": 16,
+        "ipfsUploads": 14,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:49.587Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0x07e3227843fd7839036a016beca6fd60aeae5f0372c43aa38f130e50bfe05276\", \"blockNumber\": 10485852, \"contractAddress\": null, \"cumulativeGasUsed\": \"15763288\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000012\", \"gasUsed\": \"28590\", \"hash\": \"0xd0bb734891600990ad869a462a008ecda9d969be29d22eab918c5c80e7daebf2\", \"index\": 85, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 34207,
+      "computeBudget": {
+        "veniceApiCalls": 14,
+        "ipfsFetches": 16,
+        "ipfsUploads": 14,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:49.689Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1073
+    },
+    "durationMs": 9816
+  },
+  {
+    "timestamp": "2026-03-20T19:30:49.694Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:51.712Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreigq4ddvlxyn4otgrr4nz73gxhlqgobim465dbysvhyob2o5kxiu2q"
+    },
+    "durationMs": 2015
+  },
+  {
+    "timestamp": "2026-03-20T19:30:51.717Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreigq4ddvlxyn4otgrr4nz73gxhlqgobim465dbysvhyob2o5kxiu2q",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:52.347Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696771346464766c78796e346f74677272346e7a37336778686c71676f62696d343635646279737668796f62326f356b78697532710000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 15564,
+      "computeBudget": {
+        "veniceApiCalls": 15,
+        "ipfsFetches": 16,
+        "ipfsUploads": 15,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:53.627Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1143
+    },
+    "durationMs": 9686
+  },
+  {
+    "timestamp": "2026-03-20T19:30:53.629Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:30:55.626Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreibwxojtlukmb3wck45kyjfwoiruvkdtvw7d2jnffbt5fnfc3hv2yu"
+    },
+    "durationMs": 1994
+  },
+  {
+    "timestamp": "2026-03-20T19:30:55.628Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreibwxojtlukmb3wck45kyjfwoiruvkdtvw7d2jnffbt5fnfc3hv2yu",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:30:56.239Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696277786f6a746c756b6d623377636b34356b796a66776f697275766b647476773764326a6e6666627435666e66633368763279750000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 15769,
+      "computeBudget": {
+        "veniceApiCalls": 16,
+        "ipfsFetches": 16,
+        "ipfsUploads": 16,
+        "txSubmitted": 2,
+        "totalGasUsed": "236304",
+        "startTime": 1774025149643
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:00.605Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Agent Started",
+    "metadata": {
+      "rpc": "https://sepolia.infura.io/v3/b4a2f018d9a84bec8bd915ea8353a430",
+      "contract": "0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045",
+      "wallet": "0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4",
+      "pollInterval": 5000
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:07.982Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:11.563Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:14.639Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 6651
+  },
+  {
+    "timestamp": "2026-03-20T19:48:14.642Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:14.645Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:14.647Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:16.476Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:18.628Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 7062
+  },
+  {
+    "timestamp": "2026-03-20T19:48:18.631Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:18.635Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:18.637Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:21.596Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:22.213Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5733
+  },
+  {
+    "timestamp": "2026-03-20T19:48:22.214Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:22.215Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:22.216Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:26.511Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:27.520Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5922
+  },
+  {
+    "timestamp": "2026-03-20T19:48:27.523Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:27.527Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:27.530Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:28.868Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 964
+    },
+    "durationMs": 14219
+  },
+  {
+    "timestamp": "2026-03-20T19:48:28.871Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.432Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreid5m6f3xa5jb4k7xj2hiz2ark7hsptze2gfsvph6ahcxhrusimhjy"
+    },
+    "durationMs": 2557
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.433Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreid5m6f3xa5jb4k7xj2hiz2ark7hsptze2gfsvph6ahcxhrusimhjy",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.438Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4923
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.439Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.441Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.442Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:31.528Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "1",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:32.962Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1145
+    },
+    "durationMs": 14321
+  },
+  {
+    "timestamp": "2026-03-20T19:48:32.963Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:33.372Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b72656964356d3666337861356a62346b37786a3268697a3261726b37687370747a6532676673767068366168637868727573696d686a790000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 25390,
+      "computeBudget": {
+        "veniceApiCalls": 2,
+        "ipfsFetches": 5,
+        "ipfsUploads": 1,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:33.885Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreieuucxr67ulqxu6nba724bxqrjc6y524ra7b6ludy3r5aqgtr2bxi"
+    },
+    "durationMs": 921
+  },
+  {
+    "timestamp": "2026-03-20T19:48:33.888Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreieuucxr67ulqxu6nba724bxqrjc6y524ra7b6ludy3r5aqgtr2bxi",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:34.092Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1192
+    },
+    "durationMs": 11875
+  },
+  {
+    "timestamp": "2026-03-20T19:48:34.095Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:34.474Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696575756378723637756c717875366e6261373234627871726a63367935323472613762366c7564793372356171677472326278690000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 22911,
+      "computeBudget": {
+        "veniceApiCalls": 3,
+        "ipfsFetches": 5,
+        "ipfsUploads": 2,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:35.111Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreiholywaukwwhp7axqda362uewiw5yxyqqa3ewlclbathky7yejtca"
+    },
+    "durationMs": 1014
+  },
+  {
+    "timestamp": "2026-03-20T19:48:35.114Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreiholywaukwwhp7axqda362uewiw5yxyqqa3ewlclbathky7yejtca",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:35.727Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569686f6c797761756b777768703761787164613336327565776977357978797171613365776c636c626174686b793779656a7463610000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 19252,
+      "computeBudget": {
+        "veniceApiCalls": 3,
+        "ipfsFetches": 5,
+        "ipfsUploads": 3,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:36.136Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidpttrrvrbjthv2tg7osfkbojkyeeeafwwpn4rzpasqaqyuhs7idq"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4606
+  },
+  {
+    "timestamp": "2026-03-20T19:48:36.138Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:36.140Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:36.144Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:40.193Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1266
+    },
+    "durationMs": 12660
+  },
+  {
+    "timestamp": "2026-03-20T19:48:40.196Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:42.221Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreidbr54zf5jjgbsbafkmgzguczphpbdykgunbyiemqcxhzhcbj3w6y"
+    },
+    "durationMs": 2022
+  },
+  {
+    "timestamp": "2026-03-20T19:48:42.223Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreidbr54zf5jjgbsbafkmgzguczphpbdykgunbyiemqcxhzhcbj3w6y",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:42.894Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b72656964627235347a66356a6a6762736261666b6d677a6775637a7068706264796b67756e627969656d716378687a6863626a337736790000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 21299,
+      "computeBudget": {
+        "veniceApiCalls": 4,
+        "ipfsFetches": 6,
+        "ipfsUploads": 4,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:44.411Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1080
+    },
+    "durationMs": 8265
+  },
+  {
+    "timestamp": "2026-03-20T19:48:44.415Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:45.555Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreihv5sxtxmuvvu7rqkr7vofqqpndf4nplyk6kyo44nygmrt3mdtqb4"
+    },
+    "durationMs": 1136
+  },
+  {
+    "timestamp": "2026-03-20T19:48:45.557Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreihv5sxtxmuvvu7rqkr7vofqqpndf4nplyk6kyo44nygmrt3mdtqb4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:46.275Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569687635737874786d757676753772716b7237766f667171706e6466346e706c796b366b796f34346e79676d7274336d64747162340000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 14747,
+      "computeBudget": {
+        "veniceApiCalls": 5,
+        "ipfsFetches": 6,
+        "ipfsUploads": 5,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:51.600Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "2",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:56.415Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4810
+  },
+  {
+    "timestamp": "2026-03-20T19:48:56.419Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:56.425Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:56.428Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:48:56.514Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "2",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:01.020Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4505
+  },
+  {
+    "timestamp": "2026-03-20T19:49:01.023Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:01.025Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:01.027Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:01.533Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "2",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:02.150Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 893
+    },
+    "durationMs": 5718
+  },
+  {
+    "timestamp": "2026-03-20T19:49:02.153Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:04.197Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_2.md"
+    },
+    "output": {
+      "cid": "bafkreidhcmlphimelqmoco4e6ghzhmlcbb3gsg3v7yhz4bcxup2g6tcnam"
+    },
+    "durationMs": 2039
+  },
+  {
+    "timestamp": "2026-03-20T19:49:04.200Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "2",
+      "analysisCid": "bafkreidhcmlphimelqmoco4e6ghzhmlcbb3gsg3v7yhz4bcxup2g6tcnam",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:06.454Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "2",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:06.551Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5014
+  },
+  {
+    "timestamp": "2026-03-20T19:49:06.555Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:06.558Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:06.562Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:08.800Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1294
+    },
+    "durationMs": 37357
+  },
+  {
+    "timestamp": "2026-03-20T19:49:08.802Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:10.745Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_1.md"
+    },
+    "output": {
+      "cid": "bafkreiguuvale3jrcjwvxt4doud6tr6rxoylmuzf4b2ghuilcepygw22o4"
+    },
+    "durationMs": 1941
+  },
+  {
+    "timestamp": "2026-03-20T19:49:10.747Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "1",
+      "analysisCid": "bafkreiguuvale3jrcjwvxt4doud6tr6rxoylmuzf4b2ghuilcepygw22o4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:11.366Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #1",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b72656967757576616c65336a72636a7776787434646f75643674723672786f796c6d757a66346232676875696c63657079677732326f340000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 44854,
+      "computeBudget": {
+        "veniceApiCalls": 7,
+        "ipfsFetches": 9,
+        "ipfsUploads": 7,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:11.670Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1083
+    },
+    "durationMs": 10641
+  },
+  {
+    "timestamp": "2026-03-20T19:49:11.676Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.285Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5829
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.289Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.293Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.297Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.578Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_2.md"
+    },
+    "output": {
+      "cid": "bafkreib6jwb3fh376ciljngnnz5vk7i2foz36mrynudp57mdorjaj2tz6u"
+    },
+    "durationMs": 899
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.581Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "2",
+      "analysisCid": "bafkreib6jwb3fh376ciljngnnz5vk7i2foz36mrynudp57mdorjaj2tz6u",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:12.998Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "2",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:13.203Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #2",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b72656962366a776233666833373663696c6a6e676e6e7a35766b376932666f7a33366d72796e75647035376d646f726a616a32747a36750000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 16689,
+      "computeBudget": {
+        "veniceApiCalls": 8,
+        "ipfsFetches": 10,
+        "ipfsUploads": 8,
+        "txSubmitted": 0,
+        "totalGasUsed": "0",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:15.656Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Analysis submitted and confirmed on-chain",
+    "toolName": "ethereum_transaction",
+    "input": {
+      "function": "submitAnalysis",
+      "roomId": "2"
+    },
+    "output": {
+      "txHash": "0x5fa910f9d97e2d1bd345cf331d52a53c6787b2a3cfc86aadc66598b745e46d75",
+      "gasUsed": "118158",
+      "blockNumber": 10485942
+    },
+    "durationMs": 11452
+  },
+  {
+    "timestamp": "2026-03-20T19:49:15.660Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Compute Budget Update",
+    "metadata": {
+      "totalDurationMs": 24060,
+      "veniceApiCalls": 8,
+      "ipfsFetches": 10,
+      "ipfsUploads": 8,
+      "txSubmitted": 1,
+      "totalGasUsed": "118158",
+      "startTime": 1774036078786,
+      "uptimeMs": 76874
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:16.686Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1173
+    },
+    "durationMs": 10121
+  },
+  {
+    "timestamp": "2026-03-20T19:49:16.690Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.663Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_2.md"
+    },
+    "output": {
+      "cid": "bafkreidzpgavw5okki6y2kp26r4uqdqilip7dkj2kcrza5iubu4rd6vvcq"
+    },
+    "durationMs": 1970
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.666Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "2",
+      "analysisCid": "bafkreidzpgavw5okki6y2kp26r4uqdqilip7dkj2kcrza5iubu4rd6vvcq",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.720Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreidni2dsq7ymasdzpx4lan77xtmt6joo4oy4gsqqhusgl4qpolsdya"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5721
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.722Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.724Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 1268
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:18.725Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:19.348Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #2",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569647a7067617677356f6b6b693679326b703236723475716471696c697037646b6a326b63727a61356975627534726436767663710000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 17815,
+      "computeBudget": {
+        "veniceApiCalls": 9,
+        "ipfsFetches": 11,
+        "ipfsUploads": 9,
+        "txSubmitted": 1,
+        "totalGasUsed": "118158",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:26.414Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1162
+    },
+    "durationMs": 14115
+  },
+  {
+    "timestamp": "2026-03-20T19:49:26.417Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:28.445Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_2.md"
+    },
+    "output": {
+      "cid": "bafkreibehhrb7fhv6y7jwxdvk7mj5agi6zbva4fdneqos7frekilzofhpu"
+    },
+    "durationMs": 2025
+  },
+  {
+    "timestamp": "2026-03-20T19:49:28.448Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "2",
+      "analysisCid": "bafkreibehhrb7fhv6y7jwxdvk7mj5agi6zbva4fdneqos7frekilzofhpu",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:29.078Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #2",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569626568687262376668763679376a777864766b376d6a35616769367a6276613466646e65716f73376672656b696c7a6f666870750000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 22625,
+      "computeBudget": {
+        "veniceApiCalls": 10,
+        "ipfsFetches": 11,
+        "ipfsUploads": 10,
+        "txSubmitted": 1,
+        "totalGasUsed": "118158",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:37.866Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 1268,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1396
+    },
+    "durationMs": 19140
+  },
+  {
+    "timestamp": "2026-03-20T19:49:37.868Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T19:49:40.547Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_2.md"
+    },
+    "output": {
+      "cid": "bafkreiarpqfudlmpkqubqmqvhy6ue2r2yburjh23k2sgf6nnwnl6w7hoc4"
+    },
+    "durationMs": 2678
+  },
+  {
+    "timestamp": "2026-03-20T19:49:40.550Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "2",
+      "analysisCid": "bafkreiarpqfudlmpkqubqmqvhy6ue2r2yburjh23k2sgf6nnwnl6w7hoc4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T19:49:41.251Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #2",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569617270716675646c6d706b717562716d71766879367565327232796275726a6832336b32736766366e6e776e6c367737686f63340000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 28253,
+      "computeBudget": {
+        "veniceApiCalls": 11,
+        "ipfsFetches": 11,
+        "ipfsUploads": 11,
+        "txSubmitted": 1,
+        "totalGasUsed": "118158",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:37.124Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "3",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:41.989Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "3",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.370Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 8205
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.373Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.379Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.382Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.473Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3480
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.478Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.481Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:45.484Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:47.110Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "3",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:50.375Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3262
+  },
+  {
+    "timestamp": "2026-03-20T20:16:50.379Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:50.382Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:50.387Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:52.023Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "3",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.700Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1167
+    },
+    "durationMs": 10213
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.705Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.814Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3788
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.817Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.823Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.827Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.972Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1260
+    },
+    "durationMs": 10587
+  },
+  {
+    "timestamp": "2026-03-20T20:16:55.976Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:16:56.018Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 932
+    },
+    "durationMs": 5629
+  },
+  {
+    "timestamp": "2026-03-20T20:16:56.022Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.145Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "3",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.656Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_3.md"
+    },
+    "output": {
+      "cid": "bafkreiapw2b4cwrazrms5znqzrkvmsaaqkli6nqlogubydv65ktavcdshy"
+    },
+    "durationMs": 1948
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.659Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "3",
+      "analysisCid": "bafkreiapw2b4cwrazrms5znqzrkvmsaaqkli6nqlogubydv65ktavcdshy",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.962Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_3.md"
+    },
+    "output": {
+      "cid": "bafkreidnersdaa3zqdf4nqkx2krtbfkpug2wvpxcz7oakiqrvnpb7s74gy"
+    },
+    "durationMs": 1983
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.965Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "3",
+      "analysisCid": "bafkreidnersdaa3zqdf4nqkx2krtbfkpug2wvpxcz7oakiqrvnpb7s74gy",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.969Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_3.md"
+    },
+    "output": {
+      "cid": "bafkreiakkxagoq36m7cheazhoxaatfhd3wetavxp2a2zvwcm5gdjcvpxcu"
+    },
+    "durationMs": 1943
+  },
+  {
+    "timestamp": "2026-03-20T20:16:57.973Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "3",
+      "analysisCid": "bafkreiakkxagoq36m7cheazhoxaatfhd3wetavxp2a2zvwcm5gdjcvpxcu",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:00.319Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreiabk77xlmetr3dalatvpfa3ypelqofst4rfm5kly65bhvgrw4iqpe"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3170
+  },
+  {
+    "timestamp": "2026-03-20T20:17:00.321Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:00.323Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:00.326Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:01.324Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #3",
+    "metadata": {
+      "error": "replacement fee too low (transaction=\"0x02f9011183aa36a725830f4240830f42548301d1aa9423cd0a2f395a6d4b86ba88b03d8a06d68d29804580b8a45d2f936b00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569616b6b7861676f7133366d37636865617a686f7861617466686433776574617678703261327a7677636d3567646a6376707863750000000000c001a0f70fef36bb76936e635c34dd49631d98b169bacf8e1237873663e7a46e365e6ea03ac249e10e556a8624945de373f66f40c95134305299eee5550eee6fdfa1c245\", info={ \"error\": { \"code\": -32000, \"message\": \"replacement transaction underpriced\" } }, code=REPLACEMENT_UNDERPRICED, version=6.16.0)",
+      "durationMs": 14214,
+      "computeBudget": {
+        "veniceApiCalls": 14,
+        "ipfsFetches": 16,
+        "ipfsUploads": 14,
+        "txSubmitted": 1,
+        "totalGasUsed": "118158",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:06.359Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1199
+    },
+    "durationMs": 10529
+  },
+  {
+    "timestamp": "2026-03-20T20:17:06.361Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:17:08.304Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_3.md"
+    },
+    "output": {
+      "cid": "bafkreie2ddhfuhku5ktxrlwuwo7prxnnevtmwxlqd7f4wimarm7ulg7uh4"
+    },
+    "durationMs": 1942
+  },
+  {
+    "timestamp": "2026-03-20T20:17:08.308Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "3",
+      "analysisCid": "bafkreie2ddhfuhku5ktxrlwuwo7prxnnevtmwxlqd7f4wimarm7ulg7uh4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:08.695Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1100
+    },
+    "durationMs": 8367
+  },
+  {
+    "timestamp": "2026-03-20T20:17:08.696Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:17:09.944Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_3.md"
+    },
+    "output": {
+      "cid": "bafkreidp2cdrhokyomfy7vy5yqk5usjxklfo6ybtrpzqbgm6qhxpphbo74"
+    },
+    "durationMs": 1247
+  },
+  {
+    "timestamp": "2026-03-20T20:17:09.947Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "3",
+      "analysisCid": "bafkreidp2cdrhokyomfy7vy5yqk5usjxklfo6ybtrpzqbgm6qhxpphbo74",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:11.888Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #3",
+    "metadata": {
+      "error": "replacement fee too low (transaction=\"0x02f9011183aa36a726830f4240830f42548301d1aa9423cd0a2f395a6d4b86ba88b03d8a06d68d29804580b8a45d2f936b00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569647032636472686f6b796f6d66793776793579716b3575736a786b6c666f3679627472707a7162676d36716878707068626f37340000000000c001a0e567c0a49c1962ae9240203b59e40107a0a2765f627bdf3a74bf18bb52c6f5b8a00435b483069b61883d9c82efc98ab530b9bad2708d32d8c18ed5c361d7a6e44e\", info={ \"error\": { \"code\": -32000, \"message\": \"replacement transaction underpriced\" } }, code=REPLACEMENT_UNDERPRICED, version=6.16.0)",
+      "durationMs": 14743,
+      "computeBudget": {
+        "veniceApiCalls": 16,
+        "ipfsFetches": 16,
+        "ipfsUploads": 16,
+        "txSubmitted": 1,
+        "totalGasUsed": "118158",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:13.698Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Analysis submitted and confirmed on-chain",
+    "toolName": "ethereum_transaction",
+    "input": {
+      "function": "submitAnalysis",
+      "roomId": "3"
+    },
+    "output": {
+      "txHash": "0x66f306b16007e14c017d40c465118dd4e9865f3d5f7668848c9b20104594007d",
+      "gasUsed": "118158",
+      "blockNumber": 10486074
+    },
+    "durationMs": 16035
+  },
+  {
+    "timestamp": "2026-03-20T20:17:13.700Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Compute Budget Update",
+    "metadata": {
+      "totalDurationMs": 31711,
+      "veniceApiCalls": 16,
+      "ipfsFetches": 16,
+      "ipfsUploads": 16,
+      "txSubmitted": 2,
+      "totalGasUsed": "236316",
+      "startTime": 1774036078786,
+      "uptimeMs": 1754914
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:13.701Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #3",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0x06f407bc029aa2ee60dbfd897f6ddeb8d417943bb83fe384e0d7e231b6939b51\", \"blockNumber\": 10486074, \"contractAddress\": null, \"cumulativeGasUsed\": \"14430731\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000010\", \"gasUsed\": \"28590\", \"hash\": \"0x5c5b1c9ddac6adbf1ff8e56a18fb51c0152ef2ab77020a24d447a6e422772d15\", \"index\": 112, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 36611,
+      "computeBudget": {
+        "veniceApiCalls": 16,
+        "ipfsFetches": 16,
+        "ipfsUploads": 16,
+        "txSubmitted": 2,
+        "totalGasUsed": "236316",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:17:13.702Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #3",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0x06f407bc029aa2ee60dbfd897f6ddeb8d417943bb83fe384e0d7e231b6939b51\", \"blockNumber\": 10486074, \"contractAddress\": null, \"cumulativeGasUsed\": \"14945505\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000010\", \"gasUsed\": \"28590\", \"hash\": \"0x87906ad5bfe952b54773443e5f70653ee734a82a0b874779924e8b8cc48528f1\", \"index\": 116, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 21679,
+      "computeBudget": {
+        "veniceApiCalls": 16,
+        "ipfsFetches": 16,
+        "ipfsUploads": 16,
+        "txSubmitted": 2,
+        "totalGasUsed": "236316",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:17.215Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:22.071Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4851
+  },
+  {
+    "timestamp": "2026-03-20T20:30:22.074Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:22.079Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:22.082Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:22.205Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:27.324Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:29.064Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 6855
+  },
+  {
+    "timestamp": "2026-03-20T20:30:29.066Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:29.067Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:29.068Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:32.341Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:33.450Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 6123
+  },
+  {
+    "timestamp": "2026-03-20T20:30:33.452Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:33.456Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:33.458Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:37.255Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:38.137Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 5793
+  },
+  {
+    "timestamp": "2026-03-20T20:30:38.140Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:38.144Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:38.148Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.230Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1364
+    },
+    "durationMs": 12160
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.232Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.446Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4186
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.447Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.448Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:41.449Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:42.275Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:43.297Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreibddowvjifpz5il66xl73tpr2qhbg7z4eciedqhbtj2qf4et3gili"
+    },
+    "durationMs": 2057
+  },
+  {
+    "timestamp": "2026-03-20T20:30:43.298Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreibddowvjifpz5il66xl73tpr2qhbg7z4eciedqhbtj2qf4et3gili",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:45.960Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 778
+    },
+    "durationMs": 7810
+  },
+  {
+    "timestamp": "2026-03-20T20:30:45.962Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.165Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 3887
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.166Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.168Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.169Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.473Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1430
+    },
+    "durationMs": 13012
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.477Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.763Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreie3m3kqjg52nfawv5acosp2zw4t5jignrmzevhh73a43qvsrykhpq"
+    },
+    "durationMs": 799
+  },
+  {
+    "timestamp": "2026-03-20T20:30:46.767Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreie3m3kqjg52nfawv5acosp2zw4t5jignrmzevhh73a43qvsrykhpq",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:48.315Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreiafda7rzggjkq6sowlbtc4wt6s6c7ppmt4g5ivwi3u7k2y35pbbxe"
+    },
+    "durationMs": 1834
+  },
+  {
+    "timestamp": "2026-03-20T20:30:48.316Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreiafda7rzggjkq6sowlbtc4wt6s6c7ppmt4g5ivwi3u7k2y35pbbxe",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:48.621Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Discovered new agreement room",
+    "metadata": {
+      "roomId": "4",
+      "partyA": "0x04F9EE7A",
+      "partyB": "0x49a8d7b9",
+      "ipfsHash": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:48.932Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696166646137727a67676a6b7136736f776c627463347774367336633770706d74346735697677693375376b3279333570626278650000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 21608,
+      "computeBudget": {
+        "veniceApiCalls": 19,
+        "ipfsFetches": 22,
+        "ipfsUploads": 19,
+        "txSubmitted": 2,
+        "totalGasUsed": "236316",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:51.293Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Analysis submitted and confirmed on-chain",
+    "toolName": "ethereum_transaction",
+    "input": {
+      "function": "submitAnalysis",
+      "roomId": "4"
+    },
+    "output": {
+      "txHash": "0x6fa7b822377f0de279a2535dc1b9b204e514468a1283d72a872c39d3d6fae858",
+      "gasUsed": "118158",
+      "blockNumber": 10486141
+    },
+    "durationMs": 7993
+  },
+  {
+    "timestamp": "2026-03-20T20:30:51.297Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "system",
+    "action": "Compute Budget Update",
+    "metadata": {
+      "totalDurationMs": 29093,
+      "veniceApiCalls": 19,
+      "ipfsFetches": 22,
+      "ipfsUploads": 19,
+      "txSubmitted": 3,
+      "totalGasUsed": "354474",
+      "startTime": 1774036078786,
+      "uptimeMs": 2572511
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:52.906Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Fetched contract from IPFS",
+    "toolName": "ipfs_fetch",
+    "input": {
+      "cid": "bafkreic4cjzj3vs4oj35z24lbisjw2lqm23g7vn3jshuvlr55mdvwii7za"
+    },
+    "output": {
+      "length": 0
+    },
+    "durationMs": 4284
+  },
+  {
+    "timestamp": "2026-03-20T20:30:52.911Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Detected E2EE envelope (v1). Decrypting with agent key...",
+    "metadata": {
+      "version": 1
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:52.914Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "output",
+    "action": "Successfully decrypted E2EE contract",
+    "metadata": {
+      "decryptedLength": 2845
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:52.917Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Sending contract to Venice AI for private analysis",
+    "metadata": {
+      "model": "llama-3.3-70b",
+      "privacyMode": "no-retention"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:53.332Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1645
+    },
+    "durationMs": 11882
+  },
+  {
+    "timestamp": "2026-03-20T20:30:53.334Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:30:55.200Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreigdik4mo5fbr46cpt4y3ysqhhrqytg65dlgj7mq2nqhn523dlah4a"
+    },
+    "durationMs": 1865
+  },
+  {
+    "timestamp": "2026-03-20T20:30:55.204Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreigdik4mo5fbr46cpt4y3ysqhhrqytg65dlgj7mq2nqhn523dlah4a",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:55.893Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696764696b346d6f356662723436637074347933797371686872717974673635646c676a376d71326e71686e353233646c616834610000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 18638,
+      "computeBudget": {
+        "veniceApiCalls": 20,
+        "ipfsFetches": 23,
+        "ipfsUploads": 20,
+        "txSubmitted": 3,
+        "totalGasUsed": "354474",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:56.199Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1090
+    },
+    "durationMs": 10029
+  },
+  {
+    "timestamp": "2026-03-20T20:30:56.201Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:30:57.204Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreihctdl2pvbxqqfb2qfti4jloavtbvfu2d73b324pdtkfxklcjm7u4"
+    },
+    "durationMs": 1001
+  },
+  {
+    "timestamp": "2026-03-20T20:30:57.207Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreihctdl2pvbxqqfb2qfti4jloavtbvfu2d73b324pdtkfxklcjm7u4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:30:57.910Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569686374646c3270766278717166623271667469346a6c6f6176746276667532643733623332347064746b66786b6c636a6d3775340000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 15635,
+      "computeBudget": {
+        "veniceApiCalls": 21,
+        "ipfsFetches": 23,
+        "ipfsUploads": 21,
+        "txSubmitted": 3,
+        "totalGasUsed": "354474",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:31:03.778Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 976
+    },
+    "durationMs": 41692
+  },
+  {
+    "timestamp": "2026-03-20T20:31:03.780Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:31:04.393Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "transaction execution reverted (action=\"sendTransaction\", data=null, reason=null, invocation=null, revert=null, transaction={ \"data\": \"\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, receipt={ \"_type\": \"TransactionReceipt\", \"blobGasPrice\": null, \"blobGasUsed\": null, \"blockHash\": \"0x0f5b887c05e69b02f1f51f651eb85ac2c34f32ac10f8227a7f6d57c40416b79f\", \"blockNumber\": 10486142, \"contractAddress\": null, \"cumulativeGasUsed\": \"6856053\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"gasPrice\": \"1000010\", \"gasUsed\": \"28590\", \"hash\": \"0x5f998a1b1e855c3cb9820d37038979fc9b432b4191d46b2c96a5efff38390771\", \"index\": 53, \"logs\": [  ], \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"root\": null, \"status\": 0, \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 32053,
+      "computeBudget": {
+        "veniceApiCalls": 22,
+        "ipfsFetches": 23,
+        "ipfsUploads": 21,
+        "txSubmitted": 3,
+        "totalGasUsed": "354474",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:31:05.736Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreifptfcdlaw3af7hriub6vgzmqbfliyzkrbjzj2i2ifnruq3e4yn7i"
+    },
+    "durationMs": 1954
+  },
+  {
+    "timestamp": "2026-03-20T20:31:05.739Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreifptfcdlaw3af7hriub6vgzmqbfliyzkrbjzj2i2ifnruq3e4yn7i",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:31:06.206Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Venice AI analysis completed",
+    "toolName": "venice_ai_private_inference",
+    "input": {
+      "contractLength": 2845,
+      "model": "llama-3.3-70b"
+    },
+    "output": {
+      "analysisLength": 1156
+    },
+    "durationMs": 13285
+  },
+  {
+    "timestamp": "2026-03-20T20:31:06.208Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Encrypting analysis with room key before IPFS upload"
+  },
+  {
+    "timestamp": "2026-03-20T20:31:06.448Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b7265696670746663646c61773361663768726975623676677a6d7162666c69797a6b72626a7a6a32693269666e727571336534796e37690000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 49234,
+      "computeBudget": {
+        "veniceApiCalls": 23,
+        "ipfsFetches": 23,
+        "ipfsUploads": 22,
+        "txSubmitted": 3,
+        "totalGasUsed": "354474",
+        "startTime": 1774036078786
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:31:06.958Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "tool_call",
+    "action": "Uploaded analysis to IPFS",
+    "toolName": "ipfs_upload",
+    "input": {
+      "filename": "analysis_room_4.md"
+    },
+    "output": {
+      "cid": "bafkreigxxtxa4p5eaxd4r7j3mbuflzwx64mp44nvnzxyujt3nwt2eurnb4"
+    },
+    "durationMs": 749
+  },
+  {
+    "timestamp": "2026-03-20T20:31:06.962Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "decision",
+    "action": "Submitting analysis hash to smart contract",
+    "metadata": {
+      "roomId": "4",
+      "analysisCid": "bafkreigxxtxa4p5eaxd4r7j3mbuflzwx64mp44nvnzxyujt3nwt2eurnb4",
+      "function": "submitAnalysis"
+    }
+  },
+  {
+    "timestamp": "2026-03-20T20:31:09.101Z",
+    "agentId": "3aa68a98b4994c4bb088d8044ec1ea0c",
+    "type": "failure",
+    "action": "Fatal: Failed processing Room #4",
+    "metadata": {
+      "error": "execution reverted: \"Room not awaiting analysis\" (action=\"estimateGas\", data=\"0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001a526f6f6d206e6f74206177616974696e6720616e616c79736973000000000000\", reason=\"Room not awaiting analysis\", transaction={ \"data\": \"0x5d2f936b00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003b6261666b726569677878747861347035656178643472376a336d6275666c7a777836346d7034346e766e7a7879756a74336e7774326575726e62340000000000\", \"from\": \"0x04F9EE7A6F2dBB9Deffa0cbbF7E1b9badBb108e4\", \"to\": \"0x23cd0A2F395a6d4b86BA88B03D8a06D68d298045\" }, invocation=null, revert={ \"args\": [ \"Room not awaiting analysis\" ], \"name\": \"Error\", \"signature\": \"Error(string)\" }, code=CALL_EXCEPTION, version=6.16.0)",
+      "durationMs": 20480,
+      "computeBudget": {
+        "veniceApiCalls": 23,
+        "ipfsFetches": 23,
+        "ipfsUploads": 23,
+        "txSubmitted": 3,
+        "totalGasUsed": "354474",
+        "startTime": 1774036078786
+      }
+    }
   }
 ]

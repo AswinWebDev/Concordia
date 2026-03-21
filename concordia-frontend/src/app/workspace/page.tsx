@@ -350,7 +350,7 @@ function Workspace() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               currentTurn: currentRole,
-              partyAConstraints: myConstraints,
+              partyAConstraints: activeConstraints,
               partyBConstraints: '',
               negotiationHistory: [],
               contractSummary: documentText.substring(0, 3000),
@@ -546,7 +546,9 @@ function Workspace() {
       return;
     }
     try {
-      const finalDoc = agreedTerms || documentText;
+      // Using the documentText directly. If autonomous rewrite succeeded, this is the updated contract.
+      // If the user manually edited it, this captures those edits too.
+      const finalDoc = documentText || agreedTerms;
       
       // Upload the final negotiated terms to IPFS
       const res = await fetch('/api/upload', {
@@ -614,7 +616,7 @@ function Workspace() {
   };
 
   // ====== SUGGESTION HANDLER ======
-  const handleSuggestion = (action: string) => {
+  const handleSuggestion = async (action: string) => {
     const MESSAGES: Record<string, string> = {
       'draft_freelance': 'Draft a professional freelance service agreement with scope, payment terms, rate, timeline, IP rights, confidentiality, termination, and dispute resolution.',
       'draft_rental': 'Draft a professional residential lease agreement with property description, lease term, rent, security deposit, maintenance, utilities, and termination.',
@@ -640,10 +642,32 @@ function Workspace() {
             body: JSON.stringify({ action: 'set_agreed_terms', terms: last.message })
           });
         }
+        
+        setIsAutoMode(false);
+        addSystemChat("✍️ **Autonomously Rewriting Agreement...**\n\nPlease wait while I update the original legal document to strictly incorporate our newly negotiated terms.");
+        
+        try {
+          const res = await fetch('/api/rewrite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ originalText: documentText, agreedTerms: last.message })
+          });
+          const data = await res.json();
+          if (data.rewrittenText) {
+            setDocumentText(data.rewrittenText);
+            addSystemChat("✅ **Agreement Updated Successfully!**\n\nThe document on the left now reflects our negotiated terms. Please review it before signing on-chain.");
+          } else {
+             throw new Error("No rewritten text returned.");
+          }
+        } catch (e) {
+          console.error(e);
+          addSystemChat("⚠️ **Failed to auto-rewrite the document.**\n\nPlease manually update the document on the left with the final terms before signing.");
+        }
+      } else {
+        setIsAutoMode(false);
       }
-      setIsAutoMode(false);
       
-      // Immediately prompt the user to sign on-chain
+      // Prompt the user to sign on-chain
       addSystemChat(
         `✅ **Terms approved. Ready to sign on-chain.**\n\n` +
         `📋 **Final Terms Summary:**\n${last?.message?.substring(0, 500) || 'See negotiation transcript.'}\n\n` +
